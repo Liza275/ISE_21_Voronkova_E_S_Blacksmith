@@ -111,6 +111,7 @@ namespace BlacksmithListImplement.Implements
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.ManufactureId = model.ManufactureId;
+            order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -121,11 +122,30 @@ namespace BlacksmithListImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
+            var fio = "";
+            foreach (var client in source.Clients)
+            {
+                if (client.Id==order.ClientId)
+                {
+                    fio = client.ClientFIO;
+                    break;
+                }
+            }
+            var mName = "";
+            foreach (var man in source.Manufactures)
+            {
+                if (man.Id == order.ManufactureId)
+                {
+                    mName = man.ManufactureName;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
+                ClientFIO=fio,
                 ManufactureId = order.ManufactureId,
-                ManufactureName = source.Manufactures.FirstOrDefault(manufacture => manufacture.Id == order.ManufactureId)?.ManufactureName,
+                ManufactureName = mName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
