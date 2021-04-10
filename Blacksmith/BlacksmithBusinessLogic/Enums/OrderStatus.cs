@@ -1,4 +1,8 @@
-﻿namespace BlacksmithBusinessLogic.Enums
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BlacksmithBusinessLogic.Enums
 {
     public enum OrderStatus
     {

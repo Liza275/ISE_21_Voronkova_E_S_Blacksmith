@@ -23,7 +23,7 @@ namespace BlacksmithView
         {
             LoadData();
         }
-        private void LoadData()//прописать логику
+        private void LoadData()
         {
             try
             {

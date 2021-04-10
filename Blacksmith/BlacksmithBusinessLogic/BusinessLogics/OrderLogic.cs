@@ -8,7 +8,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
 {
     public class OrderLogic
     {
-        private readonly IOrderStorage _orderStorage;//unity
+        private readonly IOrderStorage _orderStorage;
         public OrderLogic(IOrderStorage orderStorage)
         {
             _orderStorage = orderStorage;
@@ -40,7 +40,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         {
             var order = _orderStorage.GetElement(new OrderBindingModel
             {
-                Id = model.OrderId
+                Id =model.OrderId
             });
             if (order == null)
             {

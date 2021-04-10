@@ -10,7 +10,7 @@ namespace BlacksmithListImplement
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Manufacture> Manufactures { get; set; }
-        private DataListSingleton()//общее хранилище
+        private DataListSingleton()
         {
             Components = new List<Component>();
             Orders = new List<Order>();
