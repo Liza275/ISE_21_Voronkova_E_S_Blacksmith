@@ -1,6 +1,6 @@
 ﻿using BlacksmithBusinessLogic.BusinessLogics;
 using BlacksmithBusinessLogic.Interfaces;
-using BlacksmithListImplement.Implements;
+using BlacksmithFileImplement.Implements;
 using System;
 using System.Windows.Forms;
 using Unity.Lifetime;
@@ -21,7 +21,7 @@ namespace BlacksmithView
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(container.Resolve<FormMain>());
         }
-        private static IUnityContainer BuildUnityContainer()//настройка контейнера
+        private static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
             currentContainer.RegisterType<IComponentStorage, ComponentStorage>(new

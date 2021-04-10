@@ -144,6 +144,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlacksmithFileImplement\BlacksmithFileImplement.csproj">
+      <Project>{c00d7ecf-bf7f-421c-8fd4-3588d69dee94}</Project>
+      <Name>BlacksmithFileImplement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlacksmithBusinessLogic\BlacksmithBusinessLogic.csproj">
       <Project>{e32446a1-4edd-4888-9e4d-33ada8f6032e}</Project>
       <Name>BlacksmithBusinessLogic</Name>
