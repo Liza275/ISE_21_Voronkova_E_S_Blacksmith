@@ -1,5 +1,5 @@
-﻿using BlacksmithListImplement;
-using BlacksmithListImplement.Models;
+﻿using BlacksmithFileImplement;
+using BlacksmithFileImplement.Models;
 using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
@@ -8,11 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BlacksmithListImplement.Implements
+namespace BlacksmithFileImplement.Implements
 {
     public class OrderStorage : IOrderStorage
     {
-        private readonly DataListSingleton source;
+        private readonly DataListSingleton source;//использование 
 
         public OrderStorage()
         {
@@ -121,12 +121,21 @@ namespace BlacksmithListImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
+            var manName = "";
+            foreach (var man in source.Manufactures)
+            {
+                if (man.Id == order.ManufactureId)
+                {
+                    manName = man.ManufactureName;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
                 ManufactureId = order.ManufactureId,
-                ManufactureName = source.Manufactures.FirstOrDefault(manufacture => manufacture.Id == order.ManufactureId)?.ManufactureName,
-                Count = order.Count,
+                Count=order.Count,
+                ManufactureName = manName,
                 Sum = order.Sum,
                 Status = order.Status,
                 DateCreate = order.DateCreate,

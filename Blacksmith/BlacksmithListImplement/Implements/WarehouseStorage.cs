@@ -1,7 +1,8 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
+using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
-using BlacksmithListImplement;
-using BusinessLogic.Interfaces;
+using BlacksmithFileImplement;
+using BlacksmithFileImplement.Models;
 using SecuritySystemListImplement.Models;
 using System;
 using System.Collections.Generic;
@@ -123,6 +124,7 @@ namespace SecuritySystemListImplement.Implements
                 }
             }
             // обновляем существуюущие и добавляем новые
+            string test = (model.WarehouseComponents == null) ? "yes" : "no";
             foreach (var component in model.WarehouseComponents)
             {
                 if (warehouse.WarehouseComponents.ContainsKey(component.Key))
@@ -178,6 +180,11 @@ namespace SecuritySystemListImplement.Implements
                     Console.WriteLine(componentName + " " + keyValue.Value);
                 }
             }
+        }
+
+        public bool CheckComponentsCount(int count, Dictionary<int, (string, int)> components)
+        {
+            throw new NotImplementedException();
         }
     }
 }

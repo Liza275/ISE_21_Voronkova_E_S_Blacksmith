@@ -5,8 +5,6 @@ using System;
 using System.Windows.Forms;
 using Unity.Lifetime;
 using Unity;
-using BusinessLogic.Interfaces;
-using SecuritySystemListImplement.Implements;
 
 namespace BlacksmithView
 {
@@ -23,7 +21,7 @@ namespace BlacksmithView
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(container.Resolve<FormMain>());
         }
-        private static IUnityContainer BuildUnityContainer()
+        private static IUnityContainer BuildUnityContainer()//настройка контейнера
         {
             var currentContainer = new UnityContainer();
             currentContainer.RegisterType<IComponentStorage, ComponentStorage>(new
