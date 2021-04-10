@@ -1,4 +1,4 @@
-﻿namespace BlacksmithListImplement.Models
+﻿namespace BlacksmithFileImplement.Models
 {
     /// <summary>
     /// Компонент, требуемый для изготовления изделия

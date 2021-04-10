@@ -1,4 +1,8 @@
-﻿namespace BlacksmithBusinessLogic.BindingModels
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BlacksmithBusinessLogic.BindingModels
 {
     /// <summary>
     /// Данные от клиента, для создания заказа

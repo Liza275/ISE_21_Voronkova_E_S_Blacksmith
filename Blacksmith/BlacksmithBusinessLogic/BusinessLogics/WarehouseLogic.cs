@@ -1,14 +1,14 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
-using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace BlacksmithBusinessLogic.BusinessLogics
 {
-
-    public class warehouseLogic
+   
+        public class warehouseLogic
     {
             private readonly IWarehouseStorage _warehouseStorage;
 

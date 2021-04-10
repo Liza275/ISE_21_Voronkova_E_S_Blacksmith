@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 
 namespace BlacksmithBusinessLogic.ViewModels
 {
-    public class WarehouseViewModel
+   public class WarehouseViewModel
     {
         public int Id { get; set; }
 

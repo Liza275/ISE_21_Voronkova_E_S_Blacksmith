@@ -3,6 +3,7 @@ using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace BlacksmithBusinessLogic.BusinessLogics
 {

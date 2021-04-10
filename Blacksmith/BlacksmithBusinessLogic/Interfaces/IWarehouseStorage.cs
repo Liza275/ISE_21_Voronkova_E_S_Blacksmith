@@ -1,8 +1,10 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace BusinessLogic.Interfaces
+namespace BlacksmithBusinessLogic.Interfaces
 {
     public interface IWarehouseStorage
     {
@@ -17,5 +19,7 @@ namespace BusinessLogic.Interfaces
         void Update(WarehouseBindingModel model);
 
         void Delete(WarehouseBindingModel model);
+
+        bool CheckComponentsCount(int count, Dictionary<int, (string, int)> components);
     }
 }
