@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EA5C97C6-78BC-46DA-93C5-F124656720DE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>AbstractShopView</RootNamespace>
-    <AssemblyName>AbstractShopView</AssemblyName>
+    <RootNamespace>BlacksmithView</RootNamespace>
+    <AssemblyName>BlacksmithView</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -144,7 +144,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\CarFactory\CarFactoryFileImplement\BlacksmithFileImplement.csproj">
+    <ProjectReference Include="..\BlacksmithFileImplement\BlacksmithFileImplement.csproj">
       <Project>{c00d7ecf-bf7f-421c-8fd4-3588d69dee94}</Project>
       <Name>BlacksmithFileImplement</Name>
     </ProjectReference>
