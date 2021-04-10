@@ -2,10 +2,10 @@
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using BlacksmithDatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BlacksmithDatabaseImplement.Implements
 {
@@ -23,7 +23,7 @@ namespace BlacksmithDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Element not found");
                 }
             }
         }
@@ -36,14 +36,14 @@ namespace BlacksmithDatabaseImplement.Implements
             }
             using (var context = new BlacksmithDatabase())
             {
-                var order = context.Orders
+                var order = context.Orders.Include(rec => rec.Manufacture)
                 .FirstOrDefault(rec => rec.Id == model.Id || rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
                     ManufactureId = order.ManufactureId,
-                    ManufactureName = context.Manufactures.FirstOrDefault(manufacture => manufacture.Id == order.ManufactureId)?.ManufactureName,
+                    ManufactureName = order.Manufacture.ManufactureName,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
@@ -61,19 +61,21 @@ namespace BlacksmithDatabaseImplement.Implements
             }
             using (var context = new BlacksmithDatabase())
             {
-                return context.Orders
-                .Where(rec => rec.Id == model.Id)
-                .Select(rec => new OrderViewModel
-                {
-                    Id = rec.Id,
-                    ManufactureId = rec.ManufactureId,
-                    ManufactureName = context.Manufactures.FirstOrDefault(manufacture => manufacture.Id == rec.ManufactureId).ManufactureName,
-                    Count = rec.Count,
-                    Sum = rec.Sum,
-                    Status = rec.Status,
-                    DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement
-                }).ToList();
+                var result = context.Orders
+                    .Where(rec => rec.ManufactureId == model.ManufactureId || (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
+                    .Include(rec => rec.Manufacture)
+                    .Select(rec => new OrderViewModel
+                    {
+                        Id = rec.Id,
+                        ManufactureName = rec.Manufacture.ManufactureName,
+                        ManufactureId = rec.ManufactureId,
+                        Count = rec.Count,
+                        Sum = rec.Sum,
+                        Status = rec.Status,
+                        DateCreate = rec.DateCreate,
+                        DateImplement = rec.DateImplement
+                    }).ToList();
+                return result;
             }
         }
 
@@ -81,12 +83,12 @@ namespace BlacksmithDatabaseImplement.Implements
         {
             using (var context = new BlacksmithDatabase())
             {
-                return context.Orders
+                return context.Orders.Include(rec => rec.Manufacture)
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     ManufactureId = rec.ManufactureId,
-                    ManufactureName = context.Manufactures.FirstOrDefault(manufacture => manufacture.Id == rec.ManufactureId).ManufactureName,
+                    ManufactureName = rec.Manufacture.ManufactureName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -112,7 +114,7 @@ namespace BlacksmithDatabaseImplement.Implements
                 var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Element not found");
                 }
                 CreateModel(model, element);
                 context.SaveChanges();

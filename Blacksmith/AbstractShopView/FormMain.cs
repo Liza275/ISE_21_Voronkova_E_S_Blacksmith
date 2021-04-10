@@ -1,5 +1,6 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.BusinessLogics;
+using BlacksmithView;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -10,9 +11,11 @@ namespace BlacksmithView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly OrderLogic _orderLogic;
-        public FormMain(OrderLogic orderLogic)
+        private readonly ReportLogic _reportLogic;
+        public FormMain(OrderLogic orderLogic,ReportLogic reportLogic)
         {
             InitializeComponent();
+            _reportLogic = reportLogic;
             this._orderLogic = orderLogic;
             dataGridView.DataSource = _orderLogic.Read(null);
             dataGridView.AutoResizeColumns();
@@ -112,6 +115,34 @@ namespace BlacksmithView
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void СписокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
+        }
+
+        private void СписокИзделийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _reportLogic.SaveManufacturesToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void ИзделияПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportComponentManufacture>();
+            form.ShowDialog();
         }
     }
 }
