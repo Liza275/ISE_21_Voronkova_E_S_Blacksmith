@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EA5C97C6-78BC-46DA-93C5-F124656720DE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>BlacksmithView</RootNamespace>
-    <AssemblyName>BlacksmithView</AssemblyName>
+    <RootNamespace>AbstractShopView</RootNamespace>
+    <AssemblyName>AbstractShopView</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -97,6 +97,24 @@
     <Compile Include="FormManufactures.Designer.cs">
       <DependentUpon>FormManufactures.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReplenishmentWarehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReplenishmentWarehouse.Designer.cs">
+      <DependentUpon>FormReplenishmentWarehouse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWarehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarehouse.Designer.cs">
+      <DependentUpon>FormWarehouse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWarehouses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarehouses.Designer.cs">
+      <DependentUpon>FormWarehouses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormComponents.resx">
@@ -119,6 +137,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormManufactures.resx">
       <DependentUpon>FormManufactures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReplenishmentWarehouse.resx">
+      <DependentUpon>FormReplenishmentWarehouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWarehouse.resx">
+      <DependentUpon>FormWarehouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWarehouses.resx">
+      <DependentUpon>FormWarehouses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

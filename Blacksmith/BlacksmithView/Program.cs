@@ -5,6 +5,8 @@ using System;
 using System.Windows.Forms;
 using Unity.Lifetime;
 using Unity;
+using BusinessLogic.Interfaces;
+using SecuritySystemListImplement.Implements;
 
 namespace BlacksmithView
 {
@@ -30,11 +32,13 @@ namespace BlacksmithView
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IManufactureStorage, ManufactureStorage>(new
            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ComponentLogic>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<OrderLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ManufactureLogic>(new
            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<warehouseLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }
