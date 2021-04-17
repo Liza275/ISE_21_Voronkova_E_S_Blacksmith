@@ -63,8 +63,7 @@ namespace BlacksmithView
                 {
                     _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
                     {
-                        OrderId =
-                   id
+                        OrderId = id
                     });
                     LoadData();
                 }
