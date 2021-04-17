@@ -66,8 +66,7 @@ namespace BlacksmithDatabaseImplement.Implements
                 var manufacture = context.Manufactures
                 .Include(rec => rec.ManufactureComponents)
                .ThenInclude(rec => rec.Component)
-               .FirstOrDefault(rec => rec.ManufactureName == model.ManufactureName || rec.Id
-               == model.Id);
+               .FirstOrDefault(rec => rec.ManufactureName == model.ManufactureName || rec.Id == model.Id);
                 return manufacture != null ?
                 new ManufactureViewModel
                 {
@@ -77,8 +76,7 @@ namespace BlacksmithDatabaseImplement.Implements
                     ManufactureComponents = manufacture.ManufactureComponents
                 .ToDictionary(recPC => recPC.ComponentId, recPC =>
                (recPC.Component?.ComponentName, recPC.Count))
-                } :
-               null;
+                } : null;
             }
         }
         public void Insert(ManufactureBindingModel model)
@@ -112,8 +110,7 @@ namespace BlacksmithDatabaseImplement.Implements
                 {
                     try
                     {
-                        var element = context.Manufactures.FirstOrDefault(rec => rec.Id ==
-                       model.Id);
+                        var element = context.Manufactures.FirstOrDefault(rec => rec.Id == model.Id);
                         if (element == null)
                         {
                             throw new Exception("Элемент не найден");
@@ -134,8 +131,7 @@ namespace BlacksmithDatabaseImplement.Implements
         {
             using (var context = new BlacksmithDatabase())
             {
-                Manufacture element = context.Manufactures.FirstOrDefault(rec => rec.Id ==
-               model.Id);
+                Manufacture element = context.Manufactures.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element != null)
                 {
                     context.Manufactures.Remove(element);
@@ -191,5 +187,4 @@ namespace BlacksmithDatabaseImplement.Implements
             return manufacture;
         }
     }
-
 }

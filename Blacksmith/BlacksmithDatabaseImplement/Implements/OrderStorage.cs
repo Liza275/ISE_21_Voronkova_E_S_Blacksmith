@@ -2,6 +2,7 @@
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using BlacksmithDatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,14 +37,14 @@ namespace BlacksmithDatabaseImplement.Implements
             }
             using (var context = new BlacksmithDatabase())
             {
-                var order = context.Orders
+                var order = context.Orders.Include(rec => rec.Manufacture)
                 .FirstOrDefault(rec => rec.Id == model.Id || rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
                     ManufactureId = order.ManufactureId,
-                    ManufactureName = context.Manufactures.FirstOrDefault(manufacture => manufacture.Id == order.ManufactureId)?.ManufactureName,
+                    ManufactureName = order.Manufacture?.ManufactureName,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
@@ -61,13 +62,13 @@ namespace BlacksmithDatabaseImplement.Implements
             }
             using (var context = new BlacksmithDatabase())
             {
-                return context.Orders
+                return context.Orders.Include(rec => rec.Manufacture)
                 .Where(rec => rec.Id == model.Id)
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     ManufactureId = rec.ManufactureId,
-                    ManufactureName = context.Manufactures.FirstOrDefault(manufacture => manufacture.Id == rec.ManufactureId).ManufactureName,
+                    ManufactureName = rec.Manufacture.ManufactureName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
@@ -81,12 +82,12 @@ namespace BlacksmithDatabaseImplement.Implements
         {
             using (var context = new BlacksmithDatabase())
             {
-                return context.Orders
+                return context.Orders.Include(rec=>rec.Manufacture)
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
                     ManufactureId = rec.ManufactureId,
-                    ManufactureName = context.Manufactures.FirstOrDefault(manufacture => manufacture.Id == rec.ManufactureId).ManufactureName,
+                    ManufactureName = rec.Manufacture.ManufactureName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
