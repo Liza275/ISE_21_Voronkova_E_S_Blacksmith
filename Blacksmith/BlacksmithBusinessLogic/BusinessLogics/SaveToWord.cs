@@ -192,13 +192,13 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 TableRow rowHeader = new TableRow();
                 TableCell cellHeaderName = new TableCell();
                 cellHeaderName.Append(new TableCellProperties(new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "3100" }));
-                cellHeaderName.Append(new Paragraph(new Run(new Text("Warehouse name"))));
+                cellHeaderName.Append(new Paragraph(new Run(new Text("Название склада"))));
                 TableCell cellHeaderFIO = new TableCell();
                 cellHeaderFIO.Append(new TableCellProperties(new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "3100" }));
-                cellHeaderFIO.Append(new Paragraph(new Run(new Text("Managers full name"))));
+                cellHeaderFIO.Append(new Paragraph(new Run(new Text("Имя управляющего"))));
                 TableCell cellHeaderDateCreate = new TableCell();
                 cellHeaderDateCreate.Append(new TableCellProperties(new TableCellWidth() { Type = TableWidthUnitValues.Dxa, Width = "3100" }));
-                cellHeaderDateCreate.Append(new Paragraph(new Run(new Text("Date create"))));
+                cellHeaderDateCreate.Append(new Paragraph(new Run(new Text("Дата создания"))));
                 rowHeader.Append(cellHeaderName);
                 rowHeader.Append(cellHeaderFIO);
                 rowHeader.Append(cellHeaderDateCreate);

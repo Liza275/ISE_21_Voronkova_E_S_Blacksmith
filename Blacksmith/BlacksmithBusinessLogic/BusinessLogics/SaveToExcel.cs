@@ -114,7 +114,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                             ShareStringPart = shareStringPart,
                             ColumnName = "A",
                             RowIndex = rowIndex,
-                            Text = "Total",
+                            Text = "Всего",
                             StyleIndex = 0U
                         });
                         rowIndex++;
@@ -176,7 +176,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                             ShareStringPart = shareStringPart,
                             ColumnName = "A",
                             RowIndex = rowIndex,
-                            Text = "Total",
+                            Text = "Всего",
                             StyleIndex = 0U
                         });
                         rowIndex++;
