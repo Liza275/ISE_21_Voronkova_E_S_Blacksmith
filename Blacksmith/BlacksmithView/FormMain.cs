@@ -1,5 +1,6 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.BusinessLogics;
+using SecuritySystemView;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -23,7 +24,7 @@ namespace BlacksmithView
         {
             LoadData();
         }
-        private void LoadData()
+        private void LoadData()//прописать логику
         {
             try
             {
@@ -111,6 +112,17 @@ namespace BlacksmithView
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+        private void складToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormWarehouses>();
+            form.ShowDialog();
+        }
+
+        private void пополнениеСкладаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReplenishmentWarehouse>();
+            form.ShowDialog();
         }
     }
 }
