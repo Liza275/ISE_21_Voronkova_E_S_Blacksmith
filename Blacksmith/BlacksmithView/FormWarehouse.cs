@@ -100,7 +100,8 @@ namespace SecuritySystemView
                     Id = id,
                     WarehouseName = textBoxTitle.Text,
                     ResponsiblePersonFCS = textBoxName.Text,
-                    WarehouseComponents = warehouseComponents
+                    WarehouseComponents = warehouseComponents,
+                    DateCreate=DateTime.Now
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                MessageBoxButtons.OK, MessageBoxIcon.Information);

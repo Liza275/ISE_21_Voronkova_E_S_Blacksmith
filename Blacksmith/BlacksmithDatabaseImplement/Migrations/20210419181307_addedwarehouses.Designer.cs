@@ -4,14 +4,16 @@ using BlacksmithDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlacksmithDatabaseImplement.Migrations
 {
     [DbContext(typeof(BlacksmithDatabase))]
-    partial class BlacksmithDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20210419181307_addedwarehouses")]
+    partial class addedwarehouses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
