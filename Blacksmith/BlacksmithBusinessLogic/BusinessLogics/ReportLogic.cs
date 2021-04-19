@@ -107,7 +107,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             SaveToWord.CreateDocWarehouses(new WordInfo
             {
                 FileName = model.FileName,
-                Title = "Warehouses list",
+                Title = "Список складов",
                 Warehouses = _warehouseStorage.GetFullList()
             });
         }
@@ -145,7 +145,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             SaveToPdf.CreateDocOrdersByDates(new PdfInfoOrdersByDates
             {
                 FileName = model.FileName,
-                Title = "Orders by dates list",
+                Title = "Заказы по датам",
                 Orders = GetOrdersByDates()
             });
         }
@@ -155,7 +155,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             SaveToExcel.CreateDoc(new ExcelInfo
             {
                 FileName = model.FileName,
-                Title = "Warehouses list",
+                Title = "Компоненты по складам",
                 Warehouses = GetWarehouseComponent()
             });
         }

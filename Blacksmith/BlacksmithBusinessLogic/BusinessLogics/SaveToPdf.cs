@@ -89,7 +89,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             CreateRow(new PdfRowParameters
             {
                 Table = table,
-                Texts = new List<string> { "Date Create", "Orders Count", "Total Sum" },
+                Texts = new List<string> { "Дата создания", "Количество", "Всего" },
                 Style = "NormalTitle",
                 ParagraphAlignment = ParagraphAlignment.Center
             });
