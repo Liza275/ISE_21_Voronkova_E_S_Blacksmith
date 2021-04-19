@@ -1,9 +1,8 @@
-﻿using BlacksmithFileImplement.Models;
-using SecuritySystemListImplement.Models;
+﻿using BlacksmithListImplement.Models;
 using System.Collections.Generic;
 
 
-namespace BlacksmithFileImplement
+namespace BlacksmithListImplement
 {
     public class DataListSingleton
     {
@@ -11,13 +10,11 @@ namespace BlacksmithFileImplement
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Manufacture> Manufactures { get; set; }
-        public List<Warehouse> Warehouses { get; set; }
-        private DataListSingleton()//общее хранилище
+        private DataListSingleton()
         {
             Components = new List<Component>();
             Orders = new List<Order>();
             Manufactures = new List<Manufacture>();
-            Warehouses = new List<Warehouse>();
         }
         public static DataListSingleton GetInstance()
         {

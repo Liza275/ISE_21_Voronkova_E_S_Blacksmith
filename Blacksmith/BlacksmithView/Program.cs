@@ -21,7 +21,7 @@ namespace BlacksmithView
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(container.Resolve<FormMain>());
         }
-        private static IUnityContainer BuildUnityContainer()//настройка контейнера
+        private static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
             currentContainer.RegisterType<IComponentStorage, ComponentStorage>(new
@@ -30,13 +30,11 @@ namespace BlacksmithView
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IManufactureStorage, ManufactureStorage>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ComponentLogic>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<OrderLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ManufactureLogic>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<warehouseLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

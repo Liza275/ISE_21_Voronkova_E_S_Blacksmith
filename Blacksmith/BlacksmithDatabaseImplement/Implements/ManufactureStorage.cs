@@ -144,11 +144,11 @@ namespace BlacksmithDatabaseImplement.Implements
             }
         }
 
-        private Manufacture CreateModel(ManufactureBindingModel model, Manufacture manufacture)
+        private Manufacture CreateModel(ManufactureBindingModel model, Manufacture car)
         {
-            manufacture.ManufactureName = model.ManufactureName;
-            manufacture.Price = model.Price;
-            return manufacture;
+            car.ManufactureName = model.ManufactureName;
+            car.Price = model.Price;
+            return car;
         }
 
         private Manufacture CreateModel(ManufactureBindingModel model, Manufacture manufacture,

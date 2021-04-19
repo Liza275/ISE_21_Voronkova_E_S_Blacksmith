@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace BlacksmithFileImplement
 {
@@ -14,17 +15,14 @@ namespace BlacksmithFileImplement
         private readonly string ComponentFileName = "Component.xml";
         private readonly string OrderFileName = "Order.xml";
         private readonly string ManufactureFileName = "Manufacture.xml";
-        private readonly string WarehouseFileName = "Warehouse.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Manufacture> Manufactures { get; set; }
-        public List<Warehouse> Warehouses { get; set; }
         private FileDataListSingleton()
         {
             Components = LoadComponents();
             Orders = LoadOrders();
             Manufactures = LoadManufactures();
-            Warehouses = LoadWarehouses();
         }
 
         public static FileDataListSingleton GetInstance()
@@ -41,36 +39,6 @@ namespace BlacksmithFileImplement
             SaveComponents();
             SaveOrders();
             SaveManufactures();
-            SaveWarehouses();
-        }
-
-        private List<Warehouse> LoadWarehouses()
-        {
-            var list = new List<Warehouse>();
-            if (File.Exists(WarehouseFileName))
-            {
-                XDocument xDocument = XDocument.Load(WarehouseFileName);
-                var xElements = xDocument.Root.Elements("Warehouse").ToList();
-                foreach (var elem in xElements)
-                {
-                    var Components = new Dictionary<int, int>();
-                    foreach (var component in
-                   elem.Element("WarehouseComponents").Elements("WarehouseComponent").ToList())
-                    {
-                        Components.Add(Convert.ToInt32(component.Element("Key").Value),
-                       Convert.ToInt32(component.Element("Value").Value));
-                    }
-                    list.Add(new Warehouse
-                    {
-                        Id = Convert.ToInt32(elem.Attribute("Id")?.Value),
-                        WarehouseName = elem.Element("WarehouseName")?.Value,
-                        ManagerFullName = elem.Element("ManagerFullName")?.Value,
-                        DateCreate = Convert.ToDateTime(elem.Element("DateCreate")?.Value),
-                        WarehouseComponents = Components
-                    });
-                }
-            }
-            return list;
         }
 
         private List<Component> LoadComponents()
@@ -100,23 +68,7 @@ namespace BlacksmithFileImplement
                 XDocument xDocument = XDocument.Load(OrderFileName);
                 var xElements = xDocument.Root.Elements("Order").ToList();
                 foreach (var elem in xElements)
-                {
-                    var status = OrderStatus.Принят;
-                    DateTime? dateImplement = null;
-                    switch (elem.Element("Status")?.Value)
-                    {
-                        case "Paid":
-                            status = OrderStatus.Оплачен;
-                            dateImplement = Convert.ToDateTime(elem.Element("DateImplement")?.Value);
-                            break;
-                        case "Running":
-                            status = OrderStatus.Выполняется;
-                            break;
-                        case "Ready":
-                            status = OrderStatus.Готов;
-                            break;
-                    }
-
+                {                    
                     list.Add(new Order
                     {
                         Id = Convert.ToInt32(elem.Element("Id")?.Value),
@@ -124,8 +76,8 @@ namespace BlacksmithFileImplement
                         Count = Convert.ToInt32(elem.Element("Count")?.Value),
                         Sum = Convert.ToInt32(elem.Element("Sum")?.Value),
                         DateCreate = Convert.ToDateTime(elem.Element("DateCreate")?.Value),
-                        DateImplement = dateImplement,
-                        Status = status
+                        DateImplement = !string.IsNullOrEmpty(elem.Element("DateImplement").Value) ? Convert.ToDateTime(elem.Element("DateImplement").Value) : DateTime.MinValue,
+                        Status = (OrderStatus)Convert.ToInt32(elem.Element("Status").Value),
                     });
                 }
             }
@@ -172,12 +124,13 @@ namespace BlacksmithFileImplement
                     new XElement("ComponentName", component.ComponentName)));
                 }
                 XDocument xDocument = new XDocument(xElement);
-                xDocument.Save(ComponentFileName);
+                xDocument.Save(ComponentFileName);
             }
         }
 
         private void SaveOrders()
         {
+            // прописать логику
             if (Orders != null)
             {
                 var xElement = new XElement("Orders");
@@ -189,7 +142,7 @@ namespace BlacksmithFileImplement
                     new XElement("Count", order.Count),
                     new XElement("DateCreate", order.DateCreate),
                     new XElement("DateImplement", order.DateImplement),
-                    new XElement("Status", order.Status),
+                    new XElement("Status", (int)order.Status),
                     new XElement("Sum", order.Sum)));
                 }
                 XDocument xDocument = new XDocument(xElement);
@@ -219,32 +172,6 @@ namespace BlacksmithFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ManufactureFileName);
-            }
-        }
-
-        private void SaveWarehouses()
-        {
-            if (Warehouses != null)
-            {
-                var xElement = new XElement("Warehouses");
-                foreach (var warehouse in Warehouses)
-                {
-                    var compElement = new XElement("WarehouseComponents");
-                    foreach (var component in warehouse.WarehouseComponents)
-                    {
-                        compElement.Add(new XElement("WarehouseComponent",
-                        new XElement("Key", component.Key),
-                        new XElement("Value", component.Value)));
-                    }
-                    xElement.Add(new XElement("Warehouse",
-                     new XAttribute("Id", warehouse.Id),
-                     new XElement("WarehouseName", warehouse.WarehouseName),
-                     new XElement("ManagerFullName", warehouse.ManagerFullName),
-                     new XElement("DateCreate", warehouse.DateCreate),
-                     compElement));
-                }
-                XDocument xDocument = new XDocument(xElement);
-                xDocument.Save(WarehouseFileName);
             }
         }
     }

@@ -210,24 +210,6 @@
     <Compile Include="FormManufactures.Designer.cs">
       <DependentUpon>FormManufactures.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormReplenishmentWarehouse.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormReplenishmentWarehouse.Designer.cs">
-      <DependentUpon>FormReplenishmentWarehouse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormWarehouse.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormWarehouse.Designer.cs">
-      <DependentUpon>FormWarehouse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormWarehouses.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormWarehouses.Designer.cs">
-      <DependentUpon>FormWarehouses.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormComponents.resx">
@@ -250,15 +232,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormManufactures.resx">
       <DependentUpon>FormManufactures.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormReplenishmentWarehouse.resx">
-      <DependentUpon>FormReplenishmentWarehouse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormWarehouse.resx">
-      <DependentUpon>FormWarehouse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormWarehouses.resx">
-      <DependentUpon>FormWarehouses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -284,6 +257,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlacksmithFileImplement\BlacksmithFileImplement.csproj">
+      <Project>{c00d7ecf-bf7f-421c-8fd4-3588d69dee94}</Project>
+      <Name>BlacksmithFileImplement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlacksmithBusinessLogic\BlacksmithBusinessLogic.csproj">
       <Project>{e32446a1-4edd-4888-9e4d-33ada8f6032e}</Project>
       <Name>BlacksmithBusinessLogic</Name>
@@ -295,10 +272,6 @@
     <ProjectReference Include="..\BlacksmithListImplement\BlacksmithListImplement.csproj">
       <Project>{2bfc628e-1c3c-43e9-9c29-9b82adc4b561}</Project>
       <Name>BlacksmithListImplement</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BlackSmithFileImplement\BlacksmithFileImplement.csproj">
-      <Project>{eb607b03-83ca-46a7-ad03-ae99ddd805ce}</Project>
-      <Name>BlacksmithFileImplement</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

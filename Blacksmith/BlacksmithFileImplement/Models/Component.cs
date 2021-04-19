@@ -1,4 +1,8 @@
-﻿namespace BlacksmithFileImplement.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BlacksmithFileImplement.Models
 {
 	public class Component
 	{
