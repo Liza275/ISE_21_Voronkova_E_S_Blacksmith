@@ -12,17 +12,17 @@ namespace BlacksmithBusinessLogic.BusinessLogics
     public class ReportLogic
     {
         private readonly IComponentStorage _componentStorage;
-
         private readonly IManufactureStorage _manufactureStorage;
-
         private readonly IOrderStorage _orderStorage;
+        private readonly IWarehouseStorage _warehouseStorage;
 
-        public ReportLogic(IManufactureStorage manufactureStorage, IComponentStorage
-        componentStorage, IOrderStorage orderStorage)
+        public ReportLogic(IManufactureStorage carStorage, IComponentStorage
+       componentStorage, IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
         {
-            _manufactureStorage = manufactureStorage;
+            _manufactureStorage = carStorage;
             _componentStorage = componentStorage;
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
         }
         /// <summary>
         /// Получение списка компонент с указанием, в каких изделиях используются
@@ -76,6 +76,18 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             })
             .ToList();
         }
+
+        public List<ReportOrderByDatesViewModel> GetOrdersByDates()
+        {
+            return _orderStorage.GetFullList()
+            .GroupBy(rec => rec.DateCreate.ToShortDateString())
+            .Select(group => new ReportOrderByDatesViewModel
+            {
+                DateCreate = group.FirstOrDefault().DateCreate,
+                OrdersCount = group.Count(),
+                TotalSum = group.Sum(rec => rec.Sum)
+            }).ToList();
+        }
         /// <summary>
         /// Сохранение изделия в файл-Word
         /// </summary>
@@ -89,6 +101,65 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 Manufactures = _manufactureStorage.GetFullList()
             });
         }
+
+        public void SaveWarehousesToWordFile(ReportBindingModel model)
+        {
+            SaveToWord.CreateDocWarehouses(new WordInfo
+            {
+                FileName = model.FileName,
+                Title = "Warehouses list",
+                Warehouses = _warehouseStorage.GetFullList()
+            });
+        }
+
+        public List<ReportWarehouseComponentViewModel> GetWarehouseComponent()
+        {
+            var components = _componentStorage.GetFullList();
+            var warehouses = _warehouseStorage.GetFullList();
+            var list = new List<ReportWarehouseComponentViewModel>();
+            foreach (var warehouse in warehouses)
+            {
+                var record = new ReportWarehouseComponentViewModel
+                {
+                    WarehouseName = warehouse.WarehouseName,
+                    Components = new List<Tuple<string, int>>(),
+                    TotalCount = 0
+                };
+                foreach (var component in components)
+                {
+                    if (warehouse.WarehouseComponents.ContainsKey(component.Id))
+                    {
+                        record.Components.Add(new Tuple<string, int>(component.ComponentName,
+                       warehouse.WarehouseComponents[component.Id].Item2));
+                        record.TotalCount += warehouse.WarehouseComponents[component.Id].Item2;
+                    }
+                }
+                list.Add(record);
+            }
+            return list;
+        }
+
+        [Obsolete]
+        public void SaveOrdersByDatesToPdfFile(ReportBindingModel model)
+        {
+            SaveToPdf.CreateDocOrdersByDates(new PdfInfoOrdersByDates
+            {
+                FileName = model.FileName,
+                Title = "Orders by dates list",
+                Orders = GetOrdersByDates()
+            });
+        }
+
+        public void SaveWarehouseComponentToExcelFile(ReportBindingModel model)
+        {
+            SaveToExcel.CreateDoc(new ExcelInfo
+            {
+                FileName = model.FileName,
+                Title = "Warehouses list",
+                Warehouses = GetWarehouseComponent()
+            });
+        }
+
         /// <summary>
         /// Сохранение компонент с указаеним продуктов в файл-Excel
         /// </summary>

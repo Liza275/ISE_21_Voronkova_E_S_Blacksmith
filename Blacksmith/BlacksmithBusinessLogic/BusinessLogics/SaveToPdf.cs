@@ -66,6 +66,53 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             style = document.Styles.AddStyle("NormalTitle", "Normal");
             style.Font.Bold = true;
         }
+
+        public static void CreateDocOrdersByDates(PdfInfoOrdersByDates info)
+        {
+            Document document = new Document();
+            DefineStyles(document);
+
+            Section section = document.AddSection();
+            Paragraph paragraph = section.AddParagraph(info.Title);
+            paragraph.Format.SpaceAfter = "1cm";
+            paragraph.Format.Alignment = ParagraphAlignment.Center;
+            paragraph.Style = "NormalTitle";
+
+            var table = document.LastSection.AddTable();
+
+            List<string> columns = new List<string> { "6cm", "4cm", "6cm" };
+            foreach (var elem in columns)
+            {
+                table.AddColumn(elem);
+            }
+
+            CreateRow(new PdfRowParameters
+            {
+                Table = table,
+                Texts = new List<string> { "Date Create", "Orders Count", "Total Sum" },
+                Style = "NormalTitle",
+                ParagraphAlignment = ParagraphAlignment.Center
+            });
+
+            foreach (var order in info.Orders)
+            {
+                CreateRow(new PdfRowParameters
+                {
+                    Table = table,
+                    Texts = new List<string> { order.DateCreate.ToShortDateString(),
+                    order.OrdersCount.ToString(), order.TotalSum.ToString()},
+                    Style = "Normal",
+                    ParagraphAlignment = ParagraphAlignment.Left
+                });
+            }
+
+            PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always)
+            {
+                Document = document
+            };
+            renderer.RenderDocument();
+            renderer.PdfDocument.Save(info.FileName);
+        }
         /// <summary>
         /// Создание и заполнение строки
         /// </summary>

@@ -1,9 +1,8 @@
-﻿using BlacksmithFileImplement.Models;
-using SecuritySystemListImplement.Models;
+﻿using BlacksmithListImplement.Models;
 using System.Collections.Generic;
 
 
-namespace BlacksmithFileImplement
+namespace BlacksmithListImplement
 {
     public class DataListSingleton
     {

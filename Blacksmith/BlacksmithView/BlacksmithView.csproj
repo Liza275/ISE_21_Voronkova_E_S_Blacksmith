@@ -254,6 +254,18 @@
     <Compile Include="FormReplenishmentWarehouse.Designer.cs">
       <DependentUpon>FormReplenishmentWarehouse.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReportComponentsByWarehouses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportComponentsByWarehouses.Designer.cs">
+      <DependentUpon>FormReportComponentsByWarehouses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReportOrdersByDates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportOrdersByDates.Designer.cs">
+      <DependentUpon>FormReportOrdersByDates.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormWarehouse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -305,8 +317,14 @@
     <EmbeddedResource Include="FormReportComponentManufacture.resx">
       <DependentUpon>FormReportComponentManufacture.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReportComponentsByWarehouses.resx">
+      <DependentUpon>FormReportComponentsByWarehouses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReportOrders.resx">
       <DependentUpon>FormReportOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReportOrdersByDates.resx">
+      <DependentUpon>FormReportOrdersByDates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Order.rdlc" />
     <EmbeddedResource Include="FormReplenishmentWarehouse.resx">
@@ -327,11 +345,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ReportOrdersByDates.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\BlacksmithBusinessLogic.ViewModels.ComponentViewModel.datasource" />
     <None Include="Properties\DataSources\BlacksmithBusinessLogic.ViewModels.ManufactureViewModel.datasource" />
     <None Include="Properties\DataSources\BlacksmithBusinessLogic.ViewModels.OrderViewModel.datasource" />
     <None Include="Properties\DataSources\BlacksmithBusinessLogic.ViewModels.ReportComponentManufactureViewModel.datasource" />
+    <None Include="Properties\DataSources\BlacksmithBusinessLogic.ViewModels.ReportOrderByDatesViewModel.datasource" />
     <None Include="Properties\DataSources\BlacksmithBusinessLogic.ViewModels.ReportOrdersViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

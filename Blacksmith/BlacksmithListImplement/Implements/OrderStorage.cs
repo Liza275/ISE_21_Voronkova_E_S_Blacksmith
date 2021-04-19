@@ -5,7 +5,7 @@ using BlacksmithBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 
-namespace BlacksmithListImplement.Implements
+namespace BlacksmithListImplement
 {
     public class OrderStorage : IOrderStorage
     {
