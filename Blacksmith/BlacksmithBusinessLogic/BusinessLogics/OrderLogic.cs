@@ -8,10 +8,14 @@ namespace BlacksmithBusinessLogic.BusinessLogics
 {
     public class OrderLogic
     {
-        private readonly IOrderStorage _orderStorage;
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IOrderStorage _orderStorage;//unity
+        private readonly IWarehouseStorage _warehouseStorage;
+        private readonly IManufactureStorage _manufactureStorage;
+        public OrderLogic(IOrderStorage orderStorage, IManufactureStorage manufactureStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
+            _manufactureStorage = manufactureStorage;
+            _warehouseStorage = warehouseStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -38,17 +42,19 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            var order = _orderStorage.GetElement(new OrderBindingModel
-            {
-                Id =model.OrderId
-            });
+            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
-                throw new Exception("Не найден заказ");
+                throw new Exception("Заказ не найден");
             }
             if (order.Status != OrderStatus.Принят)
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
+            }
+            var manufacture = _manufactureStorage.GetElement(new ManufactureBindingModel { Id = order.ManufactureId });
+            if (!_warehouseStorage.CheckComponentsCount(order.Count, manufacture.ManufactureComponents))
+            {
+                throw new Exception("Недостаточно компонентов на складе");
             }
             _orderStorage.Update(new OrderBindingModel
             {
