@@ -1,6 +1,5 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.BusinessLogics;
-using BlacksmithView;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -63,7 +62,8 @@ namespace BlacksmithView
                 {
                     _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
                     {
-                        OrderId = id
+                        OrderId =
+                   id
                     });
                     LoadData();
                 }

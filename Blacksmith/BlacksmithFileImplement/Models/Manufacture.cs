@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BlacksmithFileImplement.Models
 {
-	public class Manufacture
+    public class Manufacture
 	{
 		public int Id { get; set; }
 		public string ManufactureName { get; set; }

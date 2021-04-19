@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace BlacksmithFileImplement
 {
@@ -68,7 +67,23 @@ namespace BlacksmithFileImplement
                 XDocument xDocument = XDocument.Load(OrderFileName);
                 var xElements = xDocument.Root.Elements("Order").ToList();
                 foreach (var elem in xElements)
-                {                    
+                {
+                    var status = OrderStatus.Принят;
+                    DateTime? dateImplement = null;
+                    switch (elem.Element("Status")?.Value)
+                    {
+                        case "Paid":
+                            status = OrderStatus.Оплачен;
+                            dateImplement = Convert.ToDateTime(elem.Element("DateImplement")?.Value);
+                            break;
+                        case "Running":
+                            status = OrderStatus.Выполняется;
+                            break;
+                        case "Ready":
+                            status = OrderStatus.Готов;
+                            break;
+                    }
+
                     list.Add(new Order
                     {
                         Id = Convert.ToInt32(elem.Element("Id")?.Value),
@@ -76,8 +91,8 @@ namespace BlacksmithFileImplement
                         Count = Convert.ToInt32(elem.Element("Count")?.Value),
                         Sum = Convert.ToInt32(elem.Element("Sum")?.Value),
                         DateCreate = Convert.ToDateTime(elem.Element("DateCreate")?.Value),
-                        DateImplement = !string.IsNullOrEmpty(elem.Element("DateImplement").Value) ? Convert.ToDateTime(elem.Element("DateImplement").Value) : DateTime.MinValue,
-                        Status = (OrderStatus)Convert.ToInt32(elem.Element("Status").Value),
+                        DateImplement = dateImplement,
+                        Status = status
                     });
                 }
             }
@@ -124,7 +139,7 @@ namespace BlacksmithFileImplement
                     new XElement("ComponentName", component.ComponentName)));
                 }
                 XDocument xDocument = new XDocument(xElement);
-                xDocument.Save(ComponentFileName);
+                xDocument.Save(ComponentFileName);
             }
         }
 
@@ -142,7 +157,7 @@ namespace BlacksmithFileImplement
                     new XElement("Count", order.Count),
                     new XElement("DateCreate", order.DateCreate),
                     new XElement("DateImplement", order.DateImplement),
-                    new XElement("Status", (int)order.Status),
+                    new XElement("Status", order.Status),
                     new XElement("Sum", order.Sum)));
                 }
                 XDocument xDocument = new XDocument(xElement);

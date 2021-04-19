@@ -19,7 +19,8 @@ namespace BlacksmithDatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     ComponentName = rec.ComponentName
-                }).ToList();
+                })
+.ToList();
             }
         }
         public List<ComponentViewModel> GetFilteredList(ComponentBindingModel model)
@@ -56,7 +57,8 @@ namespace BlacksmithDatabaseImplement.Implements
                 {
                     Id = component.Id,
                     ComponentName = component.ComponentName
-                } : null;
+                } :
+               null;
             }
         }
         public void Insert(ComponentBindingModel model)
