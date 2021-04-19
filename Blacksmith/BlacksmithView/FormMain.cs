@@ -11,16 +11,13 @@ namespace BlacksmithView
         public new IUnityContainer Container { get; set; }
         private readonly OrderLogic _orderLogic;
         private readonly ReportLogic _reportLogic;
-        public FormMain(OrderLogic orderLogic, ReportLogic reportLogic)
+        private readonly WorkModeling _workModeling;
+        public FormMain(OrderLogic orderLogic, ReportLogic reportLogic, WorkModeling workModeling)
         {
             InitializeComponent();
             _reportLogic = reportLogic;
             this._orderLogic = orderLogic;
-            dataGridView.DataSource = _orderLogic.Read(null);
-            dataGridView.AutoResizeColumns();
-            dataGridView.Columns["Id"].Visible = false;
-            dataGridView.Columns["ManufactureId"].Visible = false;
-            dataGridView.Columns["ClientId"].Visible = false;
+            _workModeling = workModeling;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -31,6 +28,10 @@ namespace BlacksmithView
             try
             {
                 dataGridView.DataSource = _orderLogic.Read(null);
+                dataGridView.Columns["Id"].Visible = false;
+                dataGridView.Columns["ManufactureId"].Visible = false;
+                dataGridView.Columns["ImplementerId"].Visible = false;
+                dataGridView.Columns["ClientId"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -149,6 +150,18 @@ namespace BlacksmithView
         {
             var form = Container.Resolve<FormClients>();
             form.ShowDialog();
+        }
+
+        private void исполнителиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormImplementers>();
+            form.ShowDialog();
+        }
+
+        private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _workModeling.DoWork();
+            LoadData();
         }
     }
 }
