@@ -1,6 +1,5 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.BusinessLogics;
-using BlacksmithView;
 using System;
 using System.Windows.Forms;
 using Unity;

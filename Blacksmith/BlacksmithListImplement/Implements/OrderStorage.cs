@@ -1,12 +1,9 @@
-﻿using BlacksmithListImplement;
-using BlacksmithListImplement.Models;
+﻿using BlacksmithListImplement.Models;
 using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlacksmithListImplement.Implements
 {

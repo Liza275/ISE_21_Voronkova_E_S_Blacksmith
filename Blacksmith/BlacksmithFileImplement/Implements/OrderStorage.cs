@@ -1,12 +1,12 @@
-﻿using CarFactoryBusinessLogic.BindingModels;
-using CarFactoryBusinessLogic.Interfaces;
-using CarFactoryBusinessLogic.ViewModels;
-using CarFactoryFileImplement.Models;
+﻿using BlacksmithBusinessLogic.BindingModels;
+using BlacksmithBusinessLogic.Interfaces;
+using BlacksmithBusinessLogic.ViewModels;
+using BlacksmithFileImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CarFactoryFileImplement.Implements
+namespace BlacksmithFileImplement.Implements
 {
     public class OrderStorage : IOrderStorage
     {
@@ -29,16 +29,6 @@ namespace CarFactoryFileImplement.Implements
             {
                 throw new Exception("Element not found");
             }
-
-            //for (int i = 0; i < source.Orders.Count; ++i)
-            //{
-            //    if (source.Orders[i].Id == model.Id)
-            //    {
-            //        source.Orders.RemoveAt(i);
-            //        return;
-            //    }
-            //}
-            //throw new Exception("Element not found");
         }
 
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -49,23 +39,10 @@ namespace CarFactoryFileImplement.Implements
             }
             var component = source.Orders.FirstOrDefault(rec => rec.Id == model.Id);
             return component != null ? CreateModel(component) : null;
-            //if (model == null)
-            //{
-            //    return null;
-            //}
-            //foreach (var order in source.Orders)
-            //{
-            //    if (order.Id == model.Id)
-            //    {
-            //        return CreateModel(order);
-            //    }
-            //}
-            //return null;
         }
 
         public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
-            // = source.Orders.Where(o => o.Id == model.Id).OrderBy(o => o.DateCreate);
             if (model == null)
             {
                 return null;
@@ -98,7 +75,7 @@ namespace CarFactoryFileImplement.Implements
 
         private Order CreateModel(OrderBindingModel model, Order order)
         {
-            order.CarId = model.CarId;
+            order.ManufactureId = model.ManufactureId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -112,8 +89,8 @@ namespace CarFactoryFileImplement.Implements
             return new OrderViewModel
             {
                 Id = order.Id,
-                CarId = order.CarId,
-                CarName = source.Cars.FirstOrDefault(car => car.Id == order.CarId)?.CarName,
+                ManufactureId = order.ManufactureId,
+                ManufactureName = source.Manufactures.FirstOrDefault(manufacture => manufacture.Id == order.ManufactureId)?.ManufactureName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
