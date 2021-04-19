@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithBusinessLogic", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithListImplement", "BlacksmithListImplement\BlacksmithListImplement.csproj", "{2BFC628E-1C3C-43E9-9C29-9B82ADC4B561}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithFileImplement", "BlacksmithFileImplement\BlacksmithFileImplement.csproj", "{C00D7ECF-BF7F-421C-8FD4-3588D69DEE94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlacksmithFileImplement", "BlacksmithFileImplement\BlacksmithFileImplement.csproj", "{EB607B03-83CA-46A7-AD03-AE99DDD805CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlacksmithDatabaseImplement", "BlacksmithDatabaseImplement\BlacksmithDatabaseImplement.csproj", "{42F721F4-F399-4E13-9DF4-015033D5826E}"
 EndProject

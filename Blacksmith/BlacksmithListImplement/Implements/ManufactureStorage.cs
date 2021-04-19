@@ -1,12 +1,12 @@
 ﻿using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
-using BlacksmithListImplement.Models;
+using BlacksmithFileImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlacksmithBusinessLogic.BindingModels;
 
-namespace BlacksmithListImplement.Implements
+namespace BlacksmithFileImplement.Implements
 {
     public class ManufactureStorage : IManufactureStorage
     {

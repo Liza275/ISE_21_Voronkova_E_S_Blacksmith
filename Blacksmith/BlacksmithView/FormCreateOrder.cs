@@ -19,7 +19,7 @@ namespace BlacksmithView
             _logicM = logicP;
             _logicO = logicO;
         }
-        private void FormCreateOrder_Load(object sender, EventArgs e)
+        private void FormCreateOrder_Load(object sender, EventArgs e)//прописать логику
         {
             try
             {
