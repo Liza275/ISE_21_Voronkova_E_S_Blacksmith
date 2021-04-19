@@ -27,7 +27,7 @@ namespace BlacksmithFileImplement.Implements
             }
             else
             {
-                throw new Exception("Element not found");
+                throw new Exception("Элемент не найден");
             }
         }
 
@@ -68,7 +68,7 @@ namespace BlacksmithFileImplement.Implements
             var element = source.Orders.FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)
             {
-                throw new Exception("Element not found");
+                throw new Exception("Элемент не найден");
             }
             CreateModel(model, element);
         }

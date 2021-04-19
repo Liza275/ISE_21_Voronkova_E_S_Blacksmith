@@ -122,7 +122,7 @@ namespace BlacksmithListImplement.Implements
             var fio = "";
             foreach (var client in source.Clients)
             {
-                if (client.Id==order.ClientId)
+                if (client.Id == order.ClientId)
                 {
                     fio = client.ClientFIO;
                     break;
@@ -140,7 +140,7 @@ namespace BlacksmithListImplement.Implements
             return new OrderViewModel
             {
                 Id = order.Id,
-                ClientFIO=fio,
+                ClientFIO = fio,
                 ManufactureId = order.ManufactureId,
                 ManufactureName = mName,
                 Count = order.Count,
