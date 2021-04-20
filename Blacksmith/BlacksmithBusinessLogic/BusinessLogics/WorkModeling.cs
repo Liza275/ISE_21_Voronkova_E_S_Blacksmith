@@ -40,7 +40,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 WorkerWorkAsync(implementer, orders);
             }
         }
-        /// <summary>
+        /// <summary> 
         /// Иммитация работы исполнителя
         /// </summary>
         /// <param name="implementer"></param>
@@ -71,7 +71,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                         _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
                         {
                             OrderId = order.Id,
-                            ImplementerId = implementer.Id
+                            ImplementerId = implementer.Id 
                         });
                         // делаем работу
                         Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);

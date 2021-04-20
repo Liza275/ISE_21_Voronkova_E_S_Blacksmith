@@ -1,5 +1,6 @@
 ﻿namespace BlacksmithBusinessLogic.BindingModels
 {
+    // Исполнитель, выполняющий заказы
     public class ImplementerBindingModel
     {
         public int? Id { get; set; }

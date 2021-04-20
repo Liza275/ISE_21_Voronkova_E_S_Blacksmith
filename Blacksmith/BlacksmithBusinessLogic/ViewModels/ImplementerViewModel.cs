@@ -2,6 +2,7 @@
 
 namespace BlacksmithBusinessLogic.ViewModels
 {
+    // Исполнитель, выполняющий заказы
     public class ImplementerViewModel
     {
         public int Id { get; set; }
