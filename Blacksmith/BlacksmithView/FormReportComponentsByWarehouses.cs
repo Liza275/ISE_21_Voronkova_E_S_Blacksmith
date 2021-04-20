@@ -41,7 +41,7 @@ namespace BlacksmithView
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK,
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             }
         }
@@ -58,16 +58,21 @@ namespace BlacksmithView
                         {
                             FileName = dialog.FileName
                         });
-                        MessageBox.Show("Done", "Success", MessageBoxButtons.OK,
+                        MessageBox.Show("Выполнено", "Успешно", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK,
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                        MessageBoxIcon.Error);
                     }
                 }
             }
+        }
+
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

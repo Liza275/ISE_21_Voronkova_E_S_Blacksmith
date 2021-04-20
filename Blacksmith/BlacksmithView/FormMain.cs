@@ -167,7 +167,7 @@ namespace BlacksmithView
                     {
                         FileName = dialog.FileName
                     });
-                    MessageBox.Show("Done", "Success", MessageBoxButtons.OK,
+                    MessageBox.Show("Выполнено", "Успешно", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 }
             }
