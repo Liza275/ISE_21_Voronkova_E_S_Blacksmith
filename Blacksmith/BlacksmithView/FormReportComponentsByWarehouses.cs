@@ -69,10 +69,5 @@ namespace BlacksmithView
                 }
             }
         }
-
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

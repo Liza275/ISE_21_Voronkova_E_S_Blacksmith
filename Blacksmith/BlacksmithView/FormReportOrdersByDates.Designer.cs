@@ -35,9 +35,10 @@
             // 
             // buttonCreate
             // 
-            this.buttonCreate.Location = new System.Drawing.Point(468, 8);
+            this.buttonCreate.Location = new System.Drawing.Point(624, 10);
+            this.buttonCreate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(107, 23);
+            this.buttonCreate.Size = new System.Drawing.Size(143, 28);
             this.buttonCreate.TabIndex = 4;
             this.buttonCreate.Text = "Создать";
             this.buttonCreate.UseVisualStyleBackColor = true;
@@ -45,9 +46,10 @@
             // 
             // buttonToPdf
             // 
-            this.buttonToPdf.Location = new System.Drawing.Point(994, 8);
+            this.buttonToPdf.Location = new System.Drawing.Point(1325, 10);
+            this.buttonToPdf.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonToPdf.Name = "buttonToPdf";
-            this.buttonToPdf.Size = new System.Drawing.Size(107, 23);
+            this.buttonToPdf.Size = new System.Drawing.Size(143, 28);
             this.buttonToPdf.TabIndex = 5;
             this.buttonToPdf.Text = "В Pdf";
             this.buttonToPdf.UseVisualStyleBackColor = true;
@@ -57,25 +59,26 @@
             // 
             this.reportViewer.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.reportViewer.LocalReport.ReportEmbeddedResource = "AbstractShopView.ReportOrdersByDates.rdlc";
-            this.reportViewer.Location = new System.Drawing.Point(0, 38);
+            this.reportViewer.Location = new System.Drawing.Point(0, 47);
+            this.reportViewer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.reportViewer.Name = "reportViewer";
             this.reportViewer.ServerReport.BearerToken = null;
-            this.reportViewer.Size = new System.Drawing.Size(1113, 529);
+            this.reportViewer.Size = new System.Drawing.Size(1484, 651);
             this.reportViewer.TabIndex = 6;
             // 
-            // FormReportOrders
+            // FormReportOrdersByDates
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1113, 567);
+            this.ClientSize = new System.Drawing.Size(1484, 698);
             this.Controls.Add(this.reportViewer);
             this.Controls.Add(this.buttonToPdf);
             this.Controls.Add(this.buttonCreate);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormReportOrdersByDates";
-            this.Text = "Client Order";
+            this.Text = "Заказы по датам";
             this.Load += new System.EventHandler(this.FormClientOrders_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
