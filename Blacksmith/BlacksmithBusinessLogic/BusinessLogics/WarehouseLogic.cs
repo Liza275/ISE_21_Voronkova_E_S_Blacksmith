@@ -19,8 +19,6 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 _componentStorage = componentStorage;
             }
 
-
-
             public List<WarehouseViewModel> Read(WarehouseBindingModel model)
             {
                 if (model == null)
