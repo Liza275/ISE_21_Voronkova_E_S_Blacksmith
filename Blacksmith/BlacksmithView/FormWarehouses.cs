@@ -4,7 +4,7 @@ using System;
 using System.Windows.Forms;
 using Unity;
 
-namespace SecuritySystemView
+namespace BlacksmithView
 {
     public partial class FormWarehouses : Form
     {

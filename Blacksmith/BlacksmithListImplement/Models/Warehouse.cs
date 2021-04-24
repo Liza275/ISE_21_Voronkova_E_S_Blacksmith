@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace SecuritySystemListImplement.Models
+namespace BlacksmithListImplement.Models
 {
     public class Warehouse
     {

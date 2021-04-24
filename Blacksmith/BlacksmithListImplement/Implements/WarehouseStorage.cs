@@ -2,13 +2,12 @@
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using BlacksmithFileImplement;
-using BlacksmithFileImplement.Models;
-using SecuritySystemListImplement.Models;
+using BlacksmithListImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SecuritySystemListImplement.Implements
+namespace BlacksmithListImplement.Implements
 {
     public class WarehouseStorage : IWarehouseStorage
     {

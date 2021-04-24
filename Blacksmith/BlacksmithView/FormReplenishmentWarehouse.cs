@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Unity;
 
-namespace SecuritySystemView
+namespace BlacksmithView
 {
     public partial class FormReplenishmentWarehouse : Form
     {
