@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BlacksmithBusinessLogic.BindingModels
+﻿namespace BlacksmithBusinessLogic.BindingModels
 {
-   public class WarehouseReplenishmentBindingModel
+    public class WarehouseReplenishmentBindingModel
     {
         public int ComponentId { get; set; }
 
