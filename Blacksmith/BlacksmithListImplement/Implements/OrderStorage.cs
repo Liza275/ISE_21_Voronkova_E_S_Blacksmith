@@ -1,15 +1,15 @@
-﻿using BlacksmithFileImplement.Models;
+﻿using BlacksmithListImplement.Models;
 using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 
-namespace BlacksmithFileImplement.Implements
+namespace BlacksmithListImplement
 {
     public class OrderStorage : IOrderStorage
     {
-        private readonly DataListSingleton source;//использование 
+        private readonly DataListSingleton source;//использование
 
         public OrderStorage()
         {
@@ -131,8 +131,8 @@ namespace BlacksmithFileImplement.Implements
             {
                 Id = order.Id,
                 ManufactureId = order.ManufactureId,
-                Count=order.Count,
                 ManufactureName = manName,
+                Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
                 DateCreate = order.DateCreate,

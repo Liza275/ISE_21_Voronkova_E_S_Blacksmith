@@ -43,7 +43,7 @@ namespace BlacksmithDatabaseImplement.Implements
                 {
                     Id = order.Id,
                     ManufactureId = order.ManufactureId,
-                    ManufactureName = order.Manufacture?.ManufactureName,
+                    ManufactureName = order.Manufacture.ManufactureName,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
@@ -61,19 +61,21 @@ namespace BlacksmithDatabaseImplement.Implements
             }
             using (var context = new BlacksmithDatabase())
             {
-                return context.Orders.Include(rec => rec.Manufacture)
-                .Where(rec => rec.Id == model.Id)
-                .Select(rec => new OrderViewModel
-                {
-                    Id = rec.Id,
-                    ManufactureId = rec.ManufactureId,
-                    ManufactureName = rec.Manufacture.ManufactureName,
-                    Count = rec.Count,
-                    Sum = rec.Sum,
-                    Status = rec.Status,
-                    DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement
-                }).ToList();
+                var result = context.Orders
+                    .Where(rec => rec.ManufactureId == model.ManufactureId || (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
+                    .Include(rec => rec.Manufacture)
+                    .Select(rec => new OrderViewModel
+                    {
+                        Id = rec.Id,
+                        ManufactureName = rec.Manufacture.ManufactureName,
+                        ManufactureId = rec.ManufactureId,
+                        Count = rec.Count,
+                        Sum = rec.Sum,
+                        Status = rec.Status,
+                        DateCreate = rec.DateCreate,
+                        DateImplement = rec.DateImplement
+                    }).ToList();
+                return result;
             }
         }
 
@@ -81,7 +83,7 @@ namespace BlacksmithDatabaseImplement.Implements
         {
             using (var context = new BlacksmithDatabase())
             {
-                return context.Orders.Include(rec=>rec.Manufacture)
+                return context.Orders.Include(rec => rec.Manufacture)
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,

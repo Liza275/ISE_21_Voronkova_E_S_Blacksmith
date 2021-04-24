@@ -34,11 +34,11 @@
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonCansel = new System.Windows.Forms.Button();
             this.ComponentId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonCansel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -102,26 +102,6 @@
             this.dataGridView.Size = new System.Drawing.Size(369, 368);
             this.dataGridView.TabIndex = 0;
             // 
-            // buttonSave
-            // 
-            this.buttonSave.Location = new System.Drawing.Point(427, 222);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(110, 48);
-            this.buttonSave.TabIndex = 5;
-            this.buttonSave.Text = "Сохранить";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // buttonCansel
-            // 
-            this.buttonCansel.Location = new System.Drawing.Point(427, 330);
-            this.buttonCansel.Name = "buttonCansel";
-            this.buttonCansel.Size = new System.Drawing.Size(110, 48);
-            this.buttonCansel.TabIndex = 6;
-            this.buttonCansel.Text = "Отмена";
-            this.buttonCansel.UseVisualStyleBackColor = true;
-            this.buttonCansel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
             // ComponentId
             // 
             this.ComponentId.HeaderText = "ComponentId";
@@ -144,6 +124,26 @@
             this.Column2.Name = "Column2";
             this.Column2.Width = 125;
             // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(427, 222);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(110, 48);
+            this.buttonSave.TabIndex = 5;
+            this.buttonSave.Text = "Сохранить";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // buttonCansel
+            // 
+            this.buttonCansel.Location = new System.Drawing.Point(427, 330);
+            this.buttonCansel.Name = "buttonCansel";
+            this.buttonCansel.Size = new System.Drawing.Size(110, 48);
+            this.buttonCansel.TabIndex = 6;
+            this.buttonCansel.Text = "Отмена";
+            this.buttonCansel.UseVisualStyleBackColor = true;
+            this.buttonCansel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
             // FormWarehouse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -157,7 +157,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FormWarehouse";
-            this.Text = "FormWarehouse";
+            this.Text = "Склад";
             this.Load += new System.EventHandler(this.FormWarehouse_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();

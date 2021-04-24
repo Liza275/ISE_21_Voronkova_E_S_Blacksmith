@@ -1,4 +1,5 @@
-﻿using BlacksmithBusinessLogic.Enums;
+﻿
+using BlacksmithBusinessLogic.Enums;
 using System;
 
 namespace BlacksmithFileImplement.Models

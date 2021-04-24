@@ -1,10 +1,10 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
-using BlacksmithFileImplement.Models;
+using BlacksmithListImplement.Models;
 using System;
 using System.Collections.Generic;
-namespace BlacksmithFileImplement.Implements
+namespace BlacksmithListImplement.Implements
 {
     public class ComponentStorage : IComponentStorage
     {

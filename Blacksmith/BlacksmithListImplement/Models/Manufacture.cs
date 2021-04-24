@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-namespace BlacksmithFileImplement.Models
+namespace BlacksmithListImplement.Models
 {
     /// <summary>
     /// Изделие, изготавливаемое в магазине

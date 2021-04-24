@@ -10,9 +10,11 @@ namespace BlacksmithView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly OrderLogic _orderLogic;
-        public FormMain(OrderLogic orderLogic)
+        private readonly ReportLogic _reportLogic;
+        public FormMain(OrderLogic orderLogic,ReportLogic reportLogic)
         {
             InitializeComponent();
+            _reportLogic = reportLogic;
             this._orderLogic = orderLogic;
             dataGridView.DataSource = _orderLogic.Read(null);
             dataGridView.AutoResizeColumns();
@@ -60,7 +62,8 @@ namespace BlacksmithView
                 {
                     _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
                     {
-                        OrderId = id
+                        OrderId =
+                   id
                     });
                     LoadData();
                 }
@@ -112,6 +115,35 @@ namespace BlacksmithView
         {
             LoadData();
         }
+
+        private void СписокЗаказовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportOrders>();
+            form.ShowDialog();
+        }
+
+        private void СписокИзделийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _reportLogic.SaveManufacturesToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void ИзделияПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportComponentManufacture>();
+            form.ShowDialog();
+        }
+
         private void складToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormWarehouses>();
@@ -121,6 +153,34 @@ namespace BlacksmithView
         private void пополнениеСкладаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReplenishmentWarehouse>();
+            form.ShowDialog();
+        }
+
+        private void списокСкладовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успешно", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void комопнентыПоСкладамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportComponentsByWarehouses>();
+            form.ShowDialog();
+        }
+
+        private void заказыПоДатамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormReportOrdersByDates>();
             form.ShowDialog();
         }
     }

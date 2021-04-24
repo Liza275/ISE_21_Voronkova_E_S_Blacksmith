@@ -37,6 +37,7 @@ namespace BlacksmithView
             currentContainer.RegisterType<ManufactureLogic>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<warehouseLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ReportLogic>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

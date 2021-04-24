@@ -1,7 +1,6 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
-using BlacksmithFileImplement;
 using BlacksmithListImplement.Models;
 using System;
 using System.Collections.Generic;
@@ -187,5 +186,3 @@ namespace BlacksmithListImplement.Implements
         }
     }
 }
-
-

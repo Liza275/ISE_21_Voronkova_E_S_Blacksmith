@@ -56,7 +56,8 @@ namespace BlacksmithDatabaseImplement.Implements
                 {
                     Id = component.Id,
                     ComponentName = component.ComponentName
-                } : null;
+                } :
+               null;
             }
         }
         public void Insert(ComponentBindingModel model)

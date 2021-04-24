@@ -2,7 +2,7 @@
 
 namespace BlacksmithFileImplement.Models
 {
-	public class Manufacture
+    public class Manufacture
 	{
 		public int Id { get; set; }
 		public string ManufactureName { get; set; }
