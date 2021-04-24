@@ -1,12 +1,9 @@
-﻿using BlacksmithListImplement;
-using BlacksmithListImplement.Models;
+﻿using BlacksmithListImplement.Models;
 using BlacksmithBusinessLogic.BindingModels;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlacksmithListImplement.Implements
 {
@@ -121,11 +118,20 @@ namespace BlacksmithListImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
+            var manName = "";
+            foreach (var man in source.Manufactures)
+            {
+                if (man.Id == order.ManufactureId)
+                {
+                    manName = man.ManufactureName;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
                 ManufactureId = order.ManufactureId,
-                ManufactureName = source.Manufactures.FirstOrDefault(manufacture => manufacture.Id == order.ManufactureId)?.ManufactureName,
+                ManufactureName = manName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
