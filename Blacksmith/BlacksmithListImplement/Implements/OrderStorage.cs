@@ -121,7 +121,7 @@ namespace BlacksmithListImplement.Implements
             var manName = "";
             foreach (var man in source.Manufactures)
             {
-                if (man.Id==order.ManufactureId)
+                if (man.Id == order.ManufactureId)
                 {
                     manName = man.ManufactureName;
                     break;
