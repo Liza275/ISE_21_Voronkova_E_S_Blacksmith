@@ -3,11 +3,10 @@ using BlacksmithBusinessLogic.BusinessLogics;
 using BlacksmithBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Unity;
 
-namespace SecuritySystemView
+namespace BlacksmithView
 {
     public partial class FormWarehouse : Form
     {

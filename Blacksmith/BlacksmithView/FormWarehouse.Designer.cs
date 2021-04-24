@@ -1,4 +1,4 @@
-﻿namespace SecuritySystemView
+﻿namespace BlacksmithView
 {
     partial class FormWarehouse
     {

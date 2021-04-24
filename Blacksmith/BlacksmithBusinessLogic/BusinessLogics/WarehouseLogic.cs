@@ -3,12 +3,11 @@ using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BlacksmithBusinessLogic.BusinessLogics
 {
-   
-        public class warehouseLogic
+
+    public class warehouseLogic
     {
             private readonly IWarehouseStorage _warehouseStorage;
 
@@ -19,8 +18,6 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 _warehouseStorage = warehouseStorage;
                 _componentStorage = componentStorage;
             }
-
-
 
             public List<WarehouseViewModel> Read(WarehouseBindingModel model)
             {

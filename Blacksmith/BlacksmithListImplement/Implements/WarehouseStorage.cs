@@ -186,5 +186,3 @@ namespace BlacksmithListImplement.Implements
         }
     }
 }
-
-
