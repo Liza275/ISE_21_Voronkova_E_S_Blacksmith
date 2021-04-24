@@ -1,10 +1,11 @@
-﻿using BlacksmithBusinessLogic.Enums;
+﻿
+using BlacksmithBusinessLogic.Enums;
 using System;
 
 namespace BlacksmithFileImplement.Models
 {
     public class Order
-	{
+    {
         public int Id { get; set; }
         public int ManufactureId { get; set; }
         public int Count { get; set; }

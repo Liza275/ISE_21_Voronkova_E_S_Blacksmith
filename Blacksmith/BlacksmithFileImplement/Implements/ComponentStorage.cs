@@ -4,7 +4,7 @@ using BlacksmithBusinessLogic.ViewModels;
 using BlacksmithFileImplement.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq;
 
 namespace BlacksmithFileImplement.Implements
 {
@@ -58,7 +58,8 @@ namespace BlacksmithFileImplement.Implements
                 throw new Exception("Элемент не найден");
             }
             CreateModel(model, element);
-        }        public void Delete(ComponentBindingModel model)
+        }
+        public void Delete(ComponentBindingModel model)
         {
             Component element = source.Components.FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
