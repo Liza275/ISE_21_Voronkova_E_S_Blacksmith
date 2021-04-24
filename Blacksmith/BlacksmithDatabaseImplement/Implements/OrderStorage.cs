@@ -23,7 +23,7 @@ namespace BlacksmithDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Element not found");
+                    throw new Exception("Элемент не найден");
                 }
             }
         }
@@ -114,7 +114,7 @@ namespace BlacksmithDatabaseImplement.Implements
                 var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
-                    throw new Exception("Element not found");
+                    throw new Exception("Элемент не найден");
                 }
                 CreateModel(model, element);
                 context.SaveChanges();
