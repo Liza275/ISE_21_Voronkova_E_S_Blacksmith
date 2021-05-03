@@ -1,5 +1,3 @@
-using System;
-
 namespace BlacksmithClientApp.Models
 {
     public class ErrorViewModel
