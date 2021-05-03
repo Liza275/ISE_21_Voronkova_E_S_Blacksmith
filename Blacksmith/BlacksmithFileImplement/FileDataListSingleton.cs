@@ -19,7 +19,7 @@ namespace BlacksmithFileImplement
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Manufacture> Manufactures { get; set; }
-        public List<Warehouse> Clients { get; set; }
+        public List<Client> Clients { get; set; }
         public List<Warehouse> Warehouses { get; set; }
 
         private FileDataListSingleton()
