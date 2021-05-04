@@ -10,5 +10,7 @@ namespace BlacksmithBusinessLogic.HelperModels
         public string Title { get; set; }
 
         public List<ManufactureViewModel> Manufactures { get; set; }
+
+        public List<WarehouseViewModel> Warehouses { get; set; }
     }
 }

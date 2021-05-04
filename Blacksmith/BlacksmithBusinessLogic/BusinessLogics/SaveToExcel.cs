@@ -13,7 +13,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         public static void CreateDoc(ExcelInfo info)
         {
             using (SpreadsheetDocument spreadsheetDocument =
-            SpreadsheetDocument.Create(info.FileName, SpreadsheetDocumentType.Workbook))
+           SpreadsheetDocument.Create(info.FileName, SpreadsheetDocumentType.Workbook))
             {
                 // Создаем книгу (в ней хранятся листы)
                 WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
@@ -21,11 +21,11 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 CreateStyles(workbookpart);
                 // Получаем/создаем хранилище текстов для книги
                 SharedStringTablePart shareStringPart =
-                spreadsheetDocument.WorkbookPart.GetPartsOfType<SharedStringTablePart>().Count() > 0
+               spreadsheetDocument.WorkbookPart.GetPartsOfType<SharedStringTablePart>().Count() > 0
                 ?
-                spreadsheetDocument.WorkbookPart.GetPartsOfType<SharedStringTablePart>().First()
+               spreadsheetDocument.WorkbookPart.GetPartsOfType<SharedStringTablePart>().First()
                 :
-                spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
+               spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
                 // Создаем SharedStringTable, если его нет
                 if (shareStringPart.SharedStringTable == null)
                 {
@@ -33,10 +33,9 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 }
                 // Создаем лист в книгу
                 WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
-                worksheetPart.Worksheet = new Worksheet(new SheetData());
-                // Добавляем лист в книгу
+                worksheetPart.Worksheet = new Worksheet(new SheetData());// Добавляем лист в книгу
                 Sheets sheets =
-                spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
+               spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
                 Sheet sheet = new Sheet()
                 {
                     Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
@@ -60,31 +59,45 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                     CellToName = "C1"
                 });
                 uint rowIndex = 2;
-
-                foreach (var pc in info.ComponentManufactures)
+                if (info.ComponentManufactures != null)
                 {
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "A",
-                        RowIndex = rowIndex,
-                        Text = pc.ManufactureName,
-                        StyleIndex = 0U
-                    });
-                    rowIndex++;
-
-                    foreach (var component in pc.Components)
+                    foreach (var pc in info.ComponentManufactures)
                     {
                         InsertCellInWorksheet(new ExcelCellParameters
                         {
                             Worksheet = worksheetPart.Worksheet,
                             ShareStringPart = shareStringPart,
-                            ColumnName = "B",
+                            ColumnName = "A",
                             RowIndex = rowIndex,
-                            Text = component.Item1,
-                            StyleIndex = 1U
+                            Text = pc.ManufactureName,
+                            StyleIndex = 0U
                         });
+                        rowIndex++;
+
+                        foreach (var component in pc.Components)
+                        {
+                            InsertCellInWorksheet(new ExcelCellParameters
+                            {
+                                Worksheet = worksheetPart.Worksheet,
+                                ShareStringPart = shareStringPart,
+                                ColumnName = "B",
+                                RowIndex = rowIndex,
+                                Text = component.Item1,
+                                StyleIndex = 1U
+                            });
+
+                            InsertCellInWorksheet(new ExcelCellParameters
+                            {
+                                Worksheet = worksheetPart.Worksheet,
+                                ShareStringPart = shareStringPart,
+                                ColumnName = "C",
+                                RowIndex = rowIndex,
+                                Text = component.Item2.ToString(),
+                                StyleIndex = 1U
+                            });
+
+                            rowIndex++;
+                        }
 
                         InsertCellInWorksheet(new ExcelCellParameters
                         {
@@ -92,35 +105,84 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                             ShareStringPart = shareStringPart,
                             ColumnName = "C",
                             RowIndex = rowIndex,
-                            Text = component.Item2.ToString(),
-                            StyleIndex = 1U
+                            Text = pc.TotalCount.ToString(),
+                            StyleIndex = 0U
                         });
-
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "A",
+                            RowIndex = rowIndex,
+                            Text = "Всего",
+                            StyleIndex = 0U
+                        });
                         rowIndex++;
                     }
-
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "C",
-                        RowIndex = rowIndex,
-                        Text = pc.TotalCount.ToString(),
-                        StyleIndex = 0U
-                    });
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "A",
-                        RowIndex = rowIndex,
-                        Text = "Итого",
-                        StyleIndex = 0U
-                    });
-                    rowIndex++;
+                    workbookpart.Workbook.Save();
                 }
+                else if (info.Warehouses != null)
+                {
+                    foreach (var pc in info.Warehouses)
+                    {
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "A",
+                            RowIndex = rowIndex,
+                            Text = pc.WarehouseName,
+                            StyleIndex = 0U
+                        });
+                        rowIndex++;
 
-                workbookpart.Workbook.Save();
+                        foreach (var component in pc.Components)
+                        {
+                            InsertCellInWorksheet(new ExcelCellParameters
+                            {
+                                Worksheet = worksheetPart.Worksheet,
+                                ShareStringPart = shareStringPart,
+                                ColumnName = "B",
+                                RowIndex = rowIndex,
+                                Text = component.Item1,
+                                StyleIndex = 1U
+                            });
+
+                            InsertCellInWorksheet(new ExcelCellParameters
+                            {
+                                Worksheet = worksheetPart.Worksheet,
+                                ShareStringPart = shareStringPart,
+                                ColumnName = "C",
+                                RowIndex = rowIndex,
+                                Text = component.Item2.ToString(),
+                                StyleIndex = 1U
+                            });
+
+                            rowIndex++;
+                        }
+
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "C",
+                            RowIndex = rowIndex,
+                            Text = pc.TotalCount.ToString(),
+                            StyleIndex = 0U
+                        });
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "A",
+                            RowIndex = rowIndex,
+                            Text = "Всего",
+                            StyleIndex = 0U
+                        });
+                        rowIndex++;
+                    }
+                    workbookpart.Workbook.Save();
+                }
             }
         }
         /// <summary>

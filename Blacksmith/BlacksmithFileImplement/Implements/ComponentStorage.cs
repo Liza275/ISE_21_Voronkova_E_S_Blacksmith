@@ -87,6 +87,5 @@ namespace BlacksmithFileImplement.Implements
                 ComponentName = component.ComponentName
             };
         }
-
     }
 }

@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithBusinessLogic", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithListImplement", "BlacksmithListImplement\BlacksmithListImplement.csproj", "{2BFC628E-1C3C-43E9-9C29-9B82ADC4B561}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithFileImplement", "BlacksmithFileImplement\BlacksmithFileImplement.csproj", "{C00D7ECF-BF7F-421C-8FD4-3588D69DEE94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithFileImplement", "BlacksmithFileImplement\BlacksmithFileImplement.csproj", "{EB607B03-83CA-46A7-AD03-AE99DDD805CE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithDatabaseImplement", "BlacksmithDatabaseImplement\BlacksmithDatabaseImplement.csproj", "{42F721F4-F399-4E13-9DF4-015033D5826E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlacksmithRestApi", "BlacksmithRestApi\BlacksmithRestApi.csproj", "{39A5EE1D-5813-4CB3-8226-80A6E9CCEF21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithRestApi", "BlacksmithRestApi\BlacksmithRestApi.csproj", "{39A5EE1D-5813-4CB3-8226-80A6E9CCEF21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlacksmithClientApp", "BlacksmithClientApp\BlacksmithClientApp.csproj", "{67003C8B-0622-46FC-961B-D9D064E27EBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlacksmithClientApp", "BlacksmithClientApp\BlacksmithClientApp.csproj", "{67003C8B-0622-46FC-961B-D9D064E27EBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeWarehouseApp", "EmployeeWarehouseApp\EmployeeWarehouseApp.csproj", "{87519A85-BB58-472D-A3E0-BF624F54D452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +37,10 @@ Global
 		{2BFC628E-1C3C-43E9-9C29-9B82ADC4B561}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BFC628E-1C3C-43E9-9C29-9B82ADC4B561}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BFC628E-1C3C-43E9-9C29-9B82ADC4B561}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C00D7ECF-BF7F-421C-8FD4-3588D69DEE94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C00D7ECF-BF7F-421C-8FD4-3588D69DEE94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C00D7ECF-BF7F-421C-8FD4-3588D69DEE94}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C00D7ECF-BF7F-421C-8FD4-3588D69DEE94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB607B03-83CA-46A7-AD03-AE99DDD805CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB607B03-83CA-46A7-AD03-AE99DDD805CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB607B03-83CA-46A7-AD03-AE99DDD805CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB607B03-83CA-46A7-AD03-AE99DDD805CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{42F721F4-F399-4E13-9DF4-015033D5826E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42F721F4-F399-4E13-9DF4-015033D5826E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42F721F4-F399-4E13-9DF4-015033D5826E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +53,10 @@ Global
 		{67003C8B-0622-46FC-961B-D9D064E27EBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67003C8B-0622-46FC-961B-D9D064E27EBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67003C8B-0622-46FC-961B-D9D064E27EBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87519A85-BB58-472D-A3E0-BF624F54D452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87519A85-BB58-472D-A3E0-BF624F54D452}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87519A85-BB58-472D-A3E0-BF624F54D452}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87519A85-BB58-472D-A3E0-BF624F54D452}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,11 +8,15 @@ namespace BlacksmithBusinessLogic.BusinessLogics
 {
     public class OrderLogic
     {
-        private readonly IOrderStorage _orderStorage;
+        private readonly IOrderStorage _orderStorage;//unity
         private readonly object locker = new object();
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+        private readonly IManufactureStorage _manufactureStorage;
+        public OrderLogic(IOrderStorage orderStorage, IManufactureStorage manufactureStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
+            _manufactureStorage = manufactureStorage;
+            _warehouseStorage = warehouseStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -53,6 +57,11 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 if (order.Status != OrderStatus.Принят)
                 {
                     throw new Exception("Заказ не в статусе \"Принят\"");
+                }
+                var manufacture = _manufactureStorage.GetElement(new ManufactureBindingModel { Id = order.ManufactureId });
+                if (!_warehouseStorage.CheckComponentsCount(order.Count, manufacture.ManufactureComponents))
+                {
+                    throw new Exception("Недостаточно компонентов на складе");
                 }
                 if (order.ImplementerId.HasValue)
                 {

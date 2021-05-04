@@ -19,30 +19,6 @@ namespace BlacksmithDatabaseImplement.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BlacksmithDatabaseImplement.Models.Client", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClientFIO")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Clients");
-                });
-
             modelBuilder.Entity("BlacksmithDatabaseImplement.Models.Component", b =>
                 {
                     b.Property<int>("Id")
@@ -132,9 +108,6 @@ namespace BlacksmithDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -167,6 +140,54 @@ namespace BlacksmithDatabaseImplement.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("BlacksmithDatabaseImplement.Models.Warehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResponsiblePersonFCS")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WarehouseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warehouses");
+                });
+
+            modelBuilder.Entity("BlacksmithDatabaseImplement.Models.WarehouseComponent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ComponentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComponentId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("WarehouseComponents");
+                });
+
             modelBuilder.Entity("BlacksmithDatabaseImplement.Models.ManufactureComponent", b =>
                 {
                     b.HasOne("BlacksmithDatabaseImplement.Models.Component", "Component")
@@ -184,9 +205,18 @@ namespace BlacksmithDatabaseImplement.Migrations
 
             modelBuilder.Entity("BlacksmithDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("BlacksmithDatabaseImplement.Models.Client", "Client")
+                    b.HasOne("BlacksmithDatabaseImplement.Models.Manufacture", "Manufacture")
                         .WithMany("Orders")
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("ManufactureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BlacksmithDatabaseImplement.Models.WarehouseComponent", b =>
+                {
+                    b.HasOne("BlacksmithDatabaseImplement.Models.Component", "Component")
+                        .WithMany("WarehouseComponents")
+                        .HasForeignKey("ComponentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -197,6 +227,11 @@ namespace BlacksmithDatabaseImplement.Migrations
                     b.HasOne("BlacksmithDatabaseImplement.Models.Manufacture", "Manufacture")
                         .WithMany("Orders")
                         .HasForeignKey("ManufactureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                    b.HasOne("BlacksmithDatabaseImplement.Models.Warehouse", "Warehouse")
+                        .WithMany("WarehouseComponents")
+                        .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

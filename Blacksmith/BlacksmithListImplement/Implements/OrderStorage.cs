@@ -5,11 +5,11 @@ using BlacksmithBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 
-namespace BlacksmithListImplement.Implements
+namespace BlacksmithListImplement
 {
     public class OrderStorage : IOrderStorage
     {
-        private readonly DataListSingleton source;
+        private readonly DataListSingleton source;//использование
 
         public OrderStorage()
         {
