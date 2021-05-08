@@ -12,6 +12,8 @@ namespace BlacksmithDatabaseImplement.Models
 
         public int ClientId { get; set; }
 
+        public int? ImplementerId { get; set; }
+
         [Required]
         public int Count { get; set; }
 
@@ -27,6 +29,8 @@ namespace BlacksmithDatabaseImplement.Models
         public virtual Manufacture Manufacture { get; set; }
 
         public virtual Client Client { get; set; }
+
+        public virtual Implementer Implementer { get; set; }
 
         public DateTime? DateImplement { get; set; }
     }

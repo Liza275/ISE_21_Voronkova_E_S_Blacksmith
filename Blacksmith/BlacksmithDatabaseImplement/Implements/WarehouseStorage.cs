@@ -31,7 +31,7 @@ namespace BlacksmithDatabaseImplement.Implements
                             }
                             if (requiredCount > 0)
                             {
-                                throw new Exception("Недостаочно компонентов на складе");
+                                return false;
                             }
                         }
                         context.SaveChanges();
@@ -40,7 +40,7 @@ namespace BlacksmithDatabaseImplement.Implements
                     catch (Exception)
                     {
                         transaction.Rollback();
-                        throw;
+                        return false;
                     }
                 }
             }

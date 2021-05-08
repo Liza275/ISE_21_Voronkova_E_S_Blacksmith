@@ -1,4 +1,5 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
+using BlacksmithBusinessLogic.Enums;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using BlacksmithDatabaseImplement.Models;
@@ -38,6 +39,7 @@ namespace BlacksmithDatabaseImplement.Implements
             {
                 var order = context.Orders.Include(rec => rec.Manufacture)
                 .Include(rec => rec.Client)
+                 .Include(rec => rec.Implementer)
                 .FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
                 CreateModel(order) : null;
@@ -52,14 +54,17 @@ namespace BlacksmithDatabaseImplement.Implements
             }
             using (var context = new BlacksmithDatabase())
             {
-                return context.Orders.Include(rec => rec.Manufacture)
-                    .Include(rec => rec.Client)
-                    .Where(rec => (!model.DateFrom.HasValue &&
-                    !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
-                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >=
-                    model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
-                    (model.ClientId.HasValue && rec.ClientId == model.ClientId))
-                    .Select(CreateModel).ToList();
+                return context.Orders
+                .Include(rec => rec.Manufacture)
+                .Include(rec => rec.Client)
+                .Include(rec => rec.Implementer)
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+                (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+                (model.FreeOrders.HasValue && model.FreeOrders.Value && rec.Status == OrderStatus.Принят) ||
+                (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется) ||
+                (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.ТребуютсяМатериалы))
+                .Select(CreateModel).ToList();
             }
         }
 
@@ -69,6 +74,7 @@ namespace BlacksmithDatabaseImplement.Implements
             {
                 return context.Orders.Include(rec => rec.Manufacture)
                     .Include(rec => rec.Client)
+                     .Include(rec => rec.Implementer)
                     .Select(CreateModel).ToList();
             }
         }
@@ -88,6 +94,7 @@ namespace BlacksmithDatabaseImplement.Implements
             {
                 var element = context.Orders.Include(rec => rec.Client)
                     .Include(rec => rec.Manufacture)
+                     .Include(rec => rec.Implementer)
                     .FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
@@ -96,6 +103,10 @@ namespace BlacksmithDatabaseImplement.Implements
                 if (!model.ClientId.HasValue)
                 {
                     model.ClientId = element.ClientId;
+                }
+                if (!model.ImplementerId.HasValue)
+                {
+                    model.ImplementerId = element.ImplementerId;
                 }
                 CreateModel(model, element);
                 context.SaveChanges();
@@ -110,6 +121,8 @@ namespace BlacksmithDatabaseImplement.Implements
                 ManufactureId = order.ManufactureId,
                 ClientId = order.ClientId,
                 ClientFIO = order.Client.ClientFIO,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = order.ImplementerId.HasValue ? order.Implementer.ImplementerFIO : string.Empty,
                 ManufactureName = order.Manufacture.ManufactureName,
                 Count = order.Count,
                 Sum = order.Sum,
@@ -126,6 +139,7 @@ namespace BlacksmithDatabaseImplement.Implements
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
+            order.ImplementerId = model.ImplementerId;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
             return order;

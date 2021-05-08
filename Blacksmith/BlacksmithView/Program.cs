@@ -30,6 +30,7 @@ namespace BlacksmithView
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IManufactureStorage, ManufactureStorage>(new
            HierarchicalLifetimeManager());
+           currentContainer.RegisterType<IImplementerStorage, ImplementerStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ComponentLogic>(new
            HierarchicalLifetimeManager());
@@ -40,6 +41,7 @@ namespace BlacksmithView
             currentContainer.RegisterType<ReportLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IClientStorage, ClientStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ClientLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<WorkModeling>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

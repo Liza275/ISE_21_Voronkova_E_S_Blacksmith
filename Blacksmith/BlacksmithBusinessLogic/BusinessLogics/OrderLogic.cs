@@ -9,6 +9,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
     public class OrderLogic
     {
         private readonly IOrderStorage _orderStorage;//unity
+        private readonly object locker = new object();
         private readonly IWarehouseStorage _warehouseStorage;
         private readonly IManufactureStorage _manufactureStorage;
         public OrderLogic(IOrderStorage orderStorage, IManufactureStorage manufactureStorage, IWarehouseStorage warehouseStorage)
@@ -43,39 +44,58 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
+            lock (locker)
+            {
+                OrderStatus status = OrderStatus.Выполняется;
+                var order = _orderStorage.GetElement(new OrderBindingModel
+                {
+                    Id = model.OrderId
+                });
+                if (order == null)
+                {
+                    throw new Exception("Заказ не найден");
+                }
+                if (order.Status != OrderStatus.Принят)
+                {
+                    throw new Exception("Заказ не в статусе \"Принят\"");
+                }
+                var manufacture = _manufactureStorage.GetElement(new ManufactureBindingModel { Id = order.ManufactureId });
+                if (!_warehouseStorage.CheckComponentsCount(order.Count, manufacture.ManufactureComponents))
+                {
+                    status = OrderStatus.ТребуютсяМатериалы;
+                }
+                if (order.ImplementerId.HasValue)
+                {
+                    throw new Exception("У заказа уже есть исполнитель");
+                }
+                _orderStorage.Update(new OrderBindingModel
+                {
+                    Id = order.Id,
+                    ClientId = order.ClientId,
+                    ImplementerId = model.ImplementerId,
+                    ManufactureId = order.ManufactureId,
+                    Count = order.Count,
+                    Sum = order.Sum,
+                    DateCreate = order.DateCreate,
+                    Status = status
+                });
+            }
+        }
+        public void FinishOrder(ChangeStatusBindingModel model)
+        {
             var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
                 throw new Exception("Заказ не найден");
             }
-            if (order.Status != OrderStatus.Принят)
+            if (order.Status == OrderStatus.ТребуютсяМатериалы)
             {
-                throw new Exception("Заказ не в статусе \"Принят\"");
+                order.Status = OrderStatus.Выполняется;
             }
-            var manufacture = _manufactureStorage.GetElement(new ManufactureBindingModel { Id = order.ManufactureId });
-            if (!_warehouseStorage.CheckComponentsCount(order.Count, manufacture.ManufactureComponents))
+            var car = _manufactureStorage.GetElement(new ManufactureBindingModel { Id = order.ManufactureId });
+            if (!_warehouseStorage.CheckComponentsCount(order.Count, car.ManufactureComponents))
             {
-                throw new Exception("Недостаточно компонентов на складе");
-            }
-            _orderStorage.Update(new OrderBindingModel
-            {
-                Id = order.Id,
-                ManufactureId = order.ManufactureId,
-                Count = order.Count,
-                Sum = order.Sum,
-                DateCreate = order.DateCreate,
-                Status = OrderStatus.Выполняется
-            });
-        }
-        public void FinishOrder(ChangeStatusBindingModel model)
-        {
-            var order = _orderStorage.GetElement(new OrderBindingModel
-            {
-                Id = model.OrderId
-            });
-            if (order == null)
-            {
-                throw new Exception("Не найден заказ");
+                return;
             }
             if (order.Status != OrderStatus.Выполняется)
             {
@@ -85,10 +105,10 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 ManufactureId = order.ManufactureId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement,
                 Status = OrderStatus.Готов
             });
         }
@@ -111,6 +131,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 ManufactureId = order.ManufactureId,
+                ImplementerId = model.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,

@@ -1,4 +1,5 @@
 ﻿using BlacksmithBusinessLogic.BindingModels;
+using BlacksmithBusinessLogic.Enums;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using BlacksmithFileImplement.Models;
@@ -47,8 +48,13 @@ namespace BlacksmithFileImplement.Implements
             {
                 return null;
             }
-            return source.Orders.Where(rec =>
-                rec.Id == model.Id).OrderBy(res => res.DateCreate).Select(CreateModel).ToList();
+            return source.Orders
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+                (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+                (model.FreeOrders.HasValue && model.FreeOrders.Value && rec.Status == OrderStatus.Принят) ||
+                (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется))
+                .Select(CreateModel).ToList();
         }
 
         public List<OrderViewModel> GetFullList()
@@ -77,6 +83,7 @@ namespace BlacksmithFileImplement.Implements
         {
             order.ManufactureId = model.ManufactureId;
             order.Count = model.Count;
+            order.ImplementerId = model.ImplementerId;
             order.Status = model.Status;
             order.Sum = model.Sum;
             order.DateCreate = model.DateCreate;
@@ -90,7 +97,10 @@ namespace BlacksmithFileImplement.Implements
             {
                 Id = order.Id,
                 ManufactureId = order.ManufactureId,
+                ImplementerId = order.ImplementerId,
+                ClientFIO = source.Clients.FirstOrDefault(client => client.Id == order.ClientId)?.ClientFIO,
                 ManufactureName = source.Manufactures.FirstOrDefault(manufacture => manufacture.Id == order.ManufactureId)?.ManufactureName,
+                ImplementerFIO = source.Implementers.FirstOrDefault(implementer => implementer.Id == order.ImplementerId)?.ImplementerFIO,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status,
