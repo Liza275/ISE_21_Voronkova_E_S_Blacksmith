@@ -17,6 +17,12 @@ namespace BlacksmithBusinessLogic.BindingModels
         public int? ClientId { get; set; }
 
         [DataMember]
+        public int? ImplementerId { get; set; }
+
+        [DataMember]
+        public bool? FreeOrders { get; set; }
+
+        [DataMember]
         public int Count { get; set; }
 
         [DataMember]
