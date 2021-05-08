@@ -77,14 +77,14 @@ namespace BlacksmithFileImplement
                     DateTime? dateImplement = null;
                     switch (elem.Element("Status")?.Value)
                     {
-                        case "Paid":
+                        case "Оплачен":
                             status = OrderStatus.Оплачен;
                             dateImplement = Convert.ToDateTime(elem.Element("DateImplement")?.Value);
                             break;
-                        case "Running":
+                        case "Выполняется":
                             status = OrderStatus.Выполняется;
                             break;
-                        case "Ready":
+                        case "Готов":
                             status = OrderStatus.Готов;
                             break;
                     }
