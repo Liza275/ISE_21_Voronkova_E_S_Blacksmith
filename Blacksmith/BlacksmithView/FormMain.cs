@@ -11,7 +11,7 @@ namespace BlacksmithView
         public new IUnityContainer Container { get; set; }
         private readonly OrderLogic _orderLogic;
         private readonly ReportLogic _reportLogic;
-        public FormMain(OrderLogic orderLogic,ReportLogic reportLogic)
+        public FormMain(OrderLogic orderLogic, ReportLogic reportLogic)
         {
             InitializeComponent();
             _reportLogic = reportLogic;
@@ -20,6 +20,7 @@ namespace BlacksmithView
             dataGridView.AutoResizeColumns();
             dataGridView.Columns["Id"].Visible = false;
             dataGridView.Columns["ManufactureId"].Visible = false;
+            dataGridView.Columns["ClientId"].Visible = false;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -141,6 +142,12 @@ namespace BlacksmithView
         private void ИзделияПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportComponentManufacture>();
+            form.ShowDialog();
+        }
+
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClients>();
             form.ShowDialog();
         }
 

@@ -13,24 +13,29 @@ namespace BlacksmithView
         public new IUnityContainer Container { get; set; }
         private readonly ManufactureLogic _logicM;
         private readonly OrderLogic _logicO;
-        public FormCreateOrder(ManufactureLogic logicP, OrderLogic logicO)
+        private readonly ClientLogic _logicClient;
+        public FormCreateOrder(ManufactureLogic logicP, ClientLogic logicClient, OrderLogic logicO)
         {
             InitializeComponent();
             _logicM = logicP;
             _logicO = logicO;
+            _logicClient = logicClient;
         }
         private void FormCreateOrder_Load(object sender, EventArgs e)//прописать логику
         {
             try
             {
                 List<ManufactureViewModel> list = _logicM.Read(null);
-                if(list!= null)
+                var clients = _logicClient.Read(null);
+                if (list != null)
                 {
                     ComboBoxManufacture.DisplayMember = "ManufactureName";
                     ComboBoxManufacture.ValueMember = "Id";
                     ComboBoxManufacture.DataSource = list;
                     ComboBoxManufacture.SelectedItem = null;
-
+                    comboBoxClients.DataSource = clients;
+                    comboBoxClients.DisplayMember = "ClientFIO";
+                    comboBoxClients.ValueMember = "Id";
                 }
             }
             catch (Exception ex)
@@ -95,6 +100,7 @@ namespace BlacksmithView
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
                     ManufactureId = Convert.ToInt32(ComboBoxManufacture.SelectedValue),
+                    ClientId=(int)comboBoxClients.SelectedValue,
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });
