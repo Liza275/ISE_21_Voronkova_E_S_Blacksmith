@@ -71,6 +71,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 {
                     OrderId = order.Id
                 });
+
                 // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
             }
