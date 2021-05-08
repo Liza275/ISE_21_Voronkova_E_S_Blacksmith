@@ -30,6 +30,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             _orderStorage.Insert(new OrderBindingModel
             {
                 ManufactureId = model.ManufactureId,
+                ClientId = model.ClientId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
@@ -40,7 +41,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         {
             var order = _orderStorage.GetElement(new OrderBindingModel
             {
-                Id =model.OrderId
+                Id = model.OrderId
             });
             if (order == null)
             {

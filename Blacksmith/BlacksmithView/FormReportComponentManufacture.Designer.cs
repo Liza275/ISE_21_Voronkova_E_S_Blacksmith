@@ -38,10 +38,9 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(92, 37);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonSave.Location = new System.Drawing.Point(69, 30);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(173, 28);
+            this.buttonSave.Size = new System.Drawing.Size(130, 23);
             this.buttonSave.TabIndex = 1;
             this.buttonSave.Text = "Сохранить в Excel ";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -55,42 +54,36 @@
             this.Manufacture,
             this.Component,
             this.Count});
-            this.dataGridView.Location = new System.Drawing.Point(0, 83);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView.Location = new System.Drawing.Point(1, 75);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(895, 332);
+            this.dataGridView.Size = new System.Drawing.Size(671, 270);
             this.dataGridView.TabIndex = 2;
             // 
             // Manufacture
             // 
             this.Manufacture.HeaderText = "Изделие";
-            this.Manufacture.MinimumWidth = 6;
             this.Manufacture.Name = "Manufacture";
             this.Manufacture.Width = 210;
             // 
             // Component
             // 
             this.Component.HeaderText = "Компонент";
-            this.Component.MinimumWidth = 6;
             this.Component.Name = "Component";
             this.Component.Width = 210;
             // 
             // Count
             // 
             this.Count.HeaderText = "Количество";
-            this.Count.MinimumWidth = 6;
             this.Count.Name = "Count";
             this.Count.Width = 210;
             // 
             // FormReportComponentManufacture
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(896, 428);
+            this.ClientSize = new System.Drawing.Size(672, 348);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.buttonSave);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormReportComponentManufacture";
             this.Text = "Изделия по компонентам";
             this.Load += new System.EventHandler(this.FormReportManufactureComponents_Load);

@@ -37,19 +37,10 @@ namespace BlacksmithDatabaseImplement.Implements
             using (var context = new BlacksmithDatabase())
             {
                 var order = context.Orders.Include(rec => rec.Manufacture)
-                .FirstOrDefault(rec => rec.Id == model.Id || rec.Id == model.Id);
+                .Include(rec => rec.Client)
+                .FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
-                new OrderViewModel
-                {
-                    Id = order.Id,
-                    ManufactureId = order.ManufactureId,
-                    ManufactureName = order.Manufacture.ManufactureName,
-                    Count = order.Count,
-                    Sum = order.Sum,
-                    Status = order.Status,
-                    DateCreate = order.DateCreate,
-                    DateImplement = order?.DateImplement
-                } : null;
+                CreateModel(order) : null;
             }
         }
 
@@ -61,21 +52,14 @@ namespace BlacksmithDatabaseImplement.Implements
             }
             using (var context = new BlacksmithDatabase())
             {
-                var result = context.Orders
-                    .Where(rec => rec.ManufactureId == model.ManufactureId || (rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo))
-                    .Include(rec => rec.Manufacture)
-                    .Select(rec => new OrderViewModel
-                    {
-                        Id = rec.Id,
-                        ManufactureName = rec.Manufacture.ManufactureName,
-                        ManufactureId = rec.ManufactureId,
-                        Count = rec.Count,
-                        Sum = rec.Sum,
-                        Status = rec.Status,
-                        DateCreate = rec.DateCreate,
-                        DateImplement = rec.DateImplement
-                    }).ToList();
-                return result;
+                return context.Orders.Include(rec => rec.Manufacture)
+                    .Include(rec => rec.Client)
+                    .Where(rec => (!model.DateFrom.HasValue &&
+                    !model.DateTo.HasValue && rec.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date >=
+                    model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date) ||
+                    (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+                    .Select(CreateModel).ToList();
             }
         }
 
@@ -84,17 +68,8 @@ namespace BlacksmithDatabaseImplement.Implements
             using (var context = new BlacksmithDatabase())
             {
                 return context.Orders.Include(rec => rec.Manufacture)
-                .Select(rec => new OrderViewModel
-                {
-                    Id = rec.Id,
-                    ManufactureId = rec.ManufactureId,
-                    ManufactureName = rec.Manufacture.ManufactureName,
-                    Count = rec.Count,
-                    Sum = rec.Sum,
-                    Status = rec.Status,
-                    DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement
-                }).ToList();
+                    .Include(rec => rec.Client)
+                    .Select(CreateModel).ToList();
             }
         }
 
@@ -111,19 +86,43 @@ namespace BlacksmithDatabaseImplement.Implements
         {
             using (var context = new BlacksmithDatabase())
             {
-                var element = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
+                var element = context.Orders.Include(rec => rec.Client)
+                    .Include(rec => rec.Manufacture)
+                    .FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
                     throw new Exception("Элемент не найден");
+                }
+                if (!model.ClientId.HasValue)
+                {
+                    model.ClientId = element.ClientId;
                 }
                 CreateModel(model, element);
                 context.SaveChanges();
             }
         }
 
+        private OrderViewModel CreateModel(Order order)
+        {
+            return new OrderViewModel
+            {
+                Id = order.Id,
+                ManufactureId = order.ManufactureId,
+                ClientId = order.ClientId,
+                ClientFIO = order.Client.ClientFIO,
+                ManufactureName = order.Manufacture.ManufactureName,
+                Count = order.Count,
+                Sum = order.Sum,
+                Status = order.Status,
+                DateCreate = order.DateCreate,
+                DateImplement = order?.DateImplement
+            };
+        }
+
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.ManufactureId = model.ManufactureId;
+            order.ClientId = Convert.ToInt32(model.ClientId);
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
