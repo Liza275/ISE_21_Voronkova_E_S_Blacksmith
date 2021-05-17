@@ -21,7 +21,7 @@ namespace BlacksmithView
             _logicO = logicO;
             _logicClient = logicClient;
         }
-        private void FormCreateOrder_Load(object sender, EventArgs e)
+        private void FormCreateOrder_Load(object sender, EventArgs e)//прописать логику
         {
             try
             {

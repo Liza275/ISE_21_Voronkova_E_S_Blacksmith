@@ -11,12 +11,16 @@ namespace BlacksmithListImplement
         public List<Order> Orders { get; set; }
         public List<Manufacture> Manufactures { get; set; }
         public List<Client> Clients { get; set; }
-        private DataListSingleton()
+        public List<Warehouse> Warehouses { get; set; }
+        public List<Implementer> Implementers { get; set; }
+        private DataListSingleton()//общее хранилище
         {
             Components = new List<Component>();
             Orders = new List<Order>();
             Manufactures = new List<Manufacture>();
             Clients = new List<Client>();
+            Warehouses = new List<Warehouse>();
+            Implementers = new List<Implementer>();
         }
         public static DataListSingleton GetInstance()
         {

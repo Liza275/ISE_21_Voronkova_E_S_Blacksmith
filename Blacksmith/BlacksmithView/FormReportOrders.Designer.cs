@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -109,6 +108,7 @@
             // reportViewerOrders
             // 
             reportDataSource1.Name = "DataSetOrders";
+            reportDataSource1.Value = null;
             this.reportViewerOrders.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewerOrders.LocalReport.ReportEmbeddedResource = "AbstractShopView.Order.rdlc";
             this.reportViewerOrders.Location = new System.Drawing.Point(1, 65);
@@ -125,7 +125,7 @@
             this.Controls.Add(this.reportViewerOrders);
             this.Controls.Add(this.panel1);
             this.Name = "FormReportOrders";
-            this.Text = "FormReportOrders";
+            this.Text = "Формирование отчетов по заказам";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

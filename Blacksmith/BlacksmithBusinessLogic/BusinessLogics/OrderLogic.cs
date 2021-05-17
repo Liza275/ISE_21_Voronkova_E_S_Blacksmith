@@ -9,13 +9,16 @@ namespace BlacksmithBusinessLogic.BusinessLogics
 {
     public class OrderLogic
     {
-        private readonly IOrderStorage _orderStorage;
-        private readonly IClientStorage _clientStorage;
+        private readonly IOrderStorage _orderStorage;//unity
         private readonly object locker = new object();
-        public OrderLogic(IOrderStorage orderStorage,IClientStorage clientStorage)
+        private readonly IClientStorage _clientStorage;
+        private readonly IWarehouseStorage _warehouseStorage;
+        private readonly IManufactureStorage _manufactureStorage;
+        public OrderLogic(IOrderStorage orderStorage, IManufactureStorage manufactureStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
-            _clientStorage = clientStorage;
+            _manufactureStorage = manufactureStorage;
+            _warehouseStorage = warehouseStorage;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
@@ -55,6 +58,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         {
             lock (locker)
             {
+                OrderStatus status = OrderStatus.Выполняется;
                 var order = _orderStorage.GetElement(new OrderBindingModel
                 {
                     Id = model.OrderId
@@ -66,6 +70,11 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                 if (order.Status != OrderStatus.Принят)
                 {
                     throw new Exception("Заказ не в статусе \"Принят\"");
+                }
+                var manufacture = _manufactureStorage.GetElement(new ManufactureBindingModel { Id = order.ManufactureId });
+                if (!_warehouseStorage.CheckComponentsCount(order.Count, manufacture.ManufactureComponents))
+                {
+                    status = OrderStatus.ТребуютсяМатериалы;
                 }
                 if (order.ImplementerId.HasValue)
                 {
@@ -80,7 +89,7 @@ namespace BlacksmithBusinessLogic.BusinessLogics
                     Count = order.Count,
                     Sum = order.Sum,
                     DateCreate = order.DateCreate,
-                    Status = OrderStatus.Выполняется
+                    Status = status
                 });
 
                 MailLogic.MailSendAsync(new MailSendInfo
@@ -96,13 +105,19 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {
-            var order = _orderStorage.GetElement(new OrderBindingModel
-            {
-                Id = model.OrderId
-            });
+            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
-                throw new Exception("Не найден заказ");
+                throw new Exception("Заказ не найден");
+            }
+            if (order.Status == OrderStatus.ТребуютсяМатериалы)
+            {
+                order.Status = OrderStatus.Выполняется;
+            }
+            var car = _manufactureStorage.GetElement(new ManufactureBindingModel { Id = order.ManufactureId });
+            if (!_warehouseStorage.CheckComponentsCount(order.Count, car.ManufactureComponents))
+            {
+                return;
             }
             if (order.Status != OrderStatus.Выполняется)
             {
@@ -112,11 +127,10 @@ namespace BlacksmithBusinessLogic.BusinessLogics
             {
                 Id = order.Id,
                 ManufactureId = order.ManufactureId,
-                ImplementerId = model.ImplementerId,
+                ImplementerId = order.ImplementerId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
-                DateImplement = order.DateImplement,
                 Status = OrderStatus.Готов
             });
 

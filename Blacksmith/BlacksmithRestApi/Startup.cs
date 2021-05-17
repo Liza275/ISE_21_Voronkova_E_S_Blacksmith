@@ -27,6 +27,10 @@ namespace BlacksmithRestApi
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<IManufactureStorage, ManufactureStorage>();
             services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
+            services.AddTransient<IWarehouseStorage, WarehouseStorage>();
+            services.AddTransient<IComponentStorage, ComponentStorage>();
+            services.AddTransient<warehouseLogic>();
+            services.AddTransient<ComponentLogic>();
             services.AddTransient<OrderLogic>();
             services.AddTransient<ClientLogic>();
             services.AddTransient<ManufactureLogic>();

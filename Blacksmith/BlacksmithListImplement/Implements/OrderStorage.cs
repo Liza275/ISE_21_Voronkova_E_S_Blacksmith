@@ -4,12 +4,13 @@ using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
+using BlacksmithBusinessLogic.Enums;
 
-namespace BlacksmithListImplement.Implements
+namespace BlacksmithListImplement
 {
     public class OrderStorage : IOrderStorage
     {
-        private readonly DataListSingleton source;
+        private readonly DataListSingleton source;//использование
 
         public OrderStorage()
         {
@@ -54,7 +55,11 @@ namespace BlacksmithListImplement.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.DateCreate.Equals(model.DateCreate))
+                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue && order.DateCreate.Date == model.DateCreate.Date) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <= model.DateTo.Value.Date) ||
+                (model.ClientId.HasValue && order.ClientId == model.ClientId) ||
+                (model.FreeOrders.HasValue && model.FreeOrders.Value && order.Status == OrderStatus.Принят) ||
+                (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && order.Status == OrderStatus.Выполняется))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -109,6 +114,7 @@ namespace BlacksmithListImplement.Implements
         {
             order.ManufactureId = model.ManufactureId;
             order.ClientId = (int)model.ClientId;
+            order.ImplementerId = (int)model.ImplementerId;
             order.Count = model.Count;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -137,14 +143,25 @@ namespace BlacksmithListImplement.Implements
                     break;
                 }
             }
+            var ImplementerFIO = "";
+            foreach (var implementer in source.Implementers)
+            {
+                if (implementer.Id == order.ImplementerId)
+                {
+                    ImplementerFIO = implementer.ImplementerFIO;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
                 ClientFIO = fio,
                 ManufactureId = order.ManufactureId,
+                ImplementerId = order.ImplementerId,
                 ManufactureName = mName,
                 Count = order.Count,
                 Sum = order.Sum,
+                ImplementerFIO = ImplementerFIO,
                 Status = order.Status,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement

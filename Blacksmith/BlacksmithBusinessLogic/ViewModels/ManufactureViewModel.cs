@@ -14,4 +14,4 @@ namespace BlacksmithBusinessLogic.ViewModels
         public decimal Price { get; set; }
         public Dictionary<int, (string, int)> ManufactureComponents { get; set; }
     }
-}
+}
