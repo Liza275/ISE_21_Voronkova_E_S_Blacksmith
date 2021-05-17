@@ -4,7 +4,7 @@ using System;
 using System.Windows.Forms;
 using Unity;
 
-namespace BlacksmithView
+namespace BlacksmithView//прописать самим
 {
     public partial class FormManufactures : Form
     {

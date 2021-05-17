@@ -93,7 +93,7 @@ namespace BlacksmithView
             new UnityContainer().AddExtension(new Diagnostic());
             Application.Run(container.Resolve<FormMain>());
         }
-        private static IUnityContainer BuildUnityContainer()
+        private static IUnityContainer BuildUnityContainer()//настройка контейнера
         {
             var currentContainer = new UnityContainer();
             currentContainer.RegisterType<IComponentStorage, ComponentStorage>(new
@@ -106,12 +106,14 @@ namespace BlacksmithView
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMessageInfoStorage, MessageInfoStorage>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<BackUpAbstractLogic, BackUpLogic>(new HierarchicalLifetimeManager());
+           currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new HierarchicalLifetimeManager());
+           currentContainer.RegisterType<BackUpAbstractLogic, BackUpLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ComponentLogic>(new
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<OrderLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ManufactureLogic>(new
            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<warehouseLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ReportLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IClientStorage, ClientStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ClientLogic>(new HierarchicalLifetimeManager());

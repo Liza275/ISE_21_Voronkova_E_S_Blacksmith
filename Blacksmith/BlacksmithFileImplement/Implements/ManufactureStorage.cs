@@ -82,7 +82,6 @@ namespace BlacksmithFileImplement.Implements
         {
             manufacture.ManufactureName = model.ManufactureName;
             manufacture.Price = model.Price;
-            // удаляем убранные
             foreach (var key in manufacture.ManufactureComponents.Keys.ToList())
             {
                 if (!model.ManufactureComponents.ContainsKey(key))
@@ -90,7 +89,6 @@ namespace BlacksmithFileImplement.Implements
                     manufacture.ManufactureComponents.Remove(key);
                 }
             }
-            // обновляем существуюущие и добавляем новые
             foreach (var component in model.ManufactureComponents)
             {
                 if (manufacture.ManufactureComponents.ContainsKey(component.Key))

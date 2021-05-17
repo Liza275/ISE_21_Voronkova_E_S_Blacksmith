@@ -4,6 +4,7 @@ using BlacksmithBusinessLogic.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace BlacksmithRestApi.Controllers
@@ -21,6 +22,8 @@ namespace BlacksmithRestApi.Controllers
 
         private readonly int _passwordMinLength = 10;
 
+        private readonly int mailsOnPage = 2;
+
         public ClientController(ClientLogic logic, MailLogic logicMail)
         {
             _logic = logic;
@@ -34,7 +37,12 @@ namespace BlacksmithRestApi.Controllers
         public void Register(ClientBindingModel model) => _logic.CreateOrUpdate(model);
 
         [HttpGet]
-        public List<MessageInfoViewModel> GetMessages(int clientId) => _logicMail.Read(new MessageInfoBindingModel { ClientId = clientId });
+        public (List<MessageInfoViewModel>, bool) GetMessages(int clientId, int page)
+        {
+            var list = _logicMail.Read(new MessageInfoBindingModel { ClientId = clientId, Skip = (page - 1) * mailsOnPage, Take = mailsOnPage + 1 }).ToList();
+            var hasNext = !(list.Count() <= mailsOnPage);
+            return (list.Take(mailsOnPage).ToList(), hasNext);
+        }
 
         [HttpPost]
         public void UpdateData(ClientBindingModel model)

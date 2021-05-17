@@ -17,4 +17,4 @@ namespace BlacksmithBusinessLogic.ViewModels
         [Column(visible: false)]
         public Dictionary<int, (string, int)> ManufactureComponents { get; set; }
     }
-}
+}

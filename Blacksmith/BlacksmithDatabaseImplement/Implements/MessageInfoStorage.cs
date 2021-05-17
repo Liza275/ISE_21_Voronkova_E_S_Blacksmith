@@ -34,11 +34,23 @@ namespace BlacksmithDatabaseImplement.Implements
             }
             using (var context = new BlacksmithDatabase())
             {
+                if (model.Skip.HasValue && model.Take.HasValue && !model.ClientId.HasValue)
+                {
+                    return context.MessageInfoes.Skip((int)model.Skip).Take((int)model.Take)
+                    .Select(rec => new MessageInfoViewModel
+                    {
+                        MessageId = rec.MessageId,
+                        SenderName = rec.SenderName,
+                        DateDelivery = rec.DateDelivery,
+                        Subject = rec.Subject,
+                        Body = rec.Body
+                    }).ToList();
+                }
                 return context.MessageInfoes
-                .Where(rec => (model.ClientId.HasValue && rec.ClientId ==
-                model.ClientId) ||
-                (!model.ClientId.HasValue && rec.DateDelivery.Date ==
-                model.DateDelivery.Date))
+                .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+                (!model.ClientId.HasValue && rec.DateDelivery.Date == model.DateDelivery.Date))
+                .Skip(model.Skip ?? 0)
+                .Take(model.Take ?? context.MessageInfoes.Count())
                 .Select(rec => new MessageInfoViewModel
                 {
                     MessageId = rec.MessageId,
