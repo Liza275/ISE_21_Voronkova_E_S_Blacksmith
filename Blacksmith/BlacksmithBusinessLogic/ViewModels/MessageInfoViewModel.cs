@@ -16,7 +16,7 @@ namespace BlacksmithBusinessLogic.ViewModels
         [DataMember]
         public string SenderName { get; set; }
 
-        [Column(title: "Дата письма", width: 100)]
+        [Column(title: "Дата письма", width: 100, format: "D")]
         [DataMember]
         public DateTime DateDelivery { get; set; }
 

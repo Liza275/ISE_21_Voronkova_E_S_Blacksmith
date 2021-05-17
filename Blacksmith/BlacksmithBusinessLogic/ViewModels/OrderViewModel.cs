@@ -50,11 +50,11 @@ namespace BlacksmithBusinessLogic.ViewModels
         public OrderStatus Status { get; set; }
 
         [DataMember]
-        [Column(title: "Дата создания", gridViewAutoSize: GridViewAutoSize.Fill)]
+        [Column(title: "Дата создания", gridViewAutoSize: GridViewAutoSize.Fill, format: "D")]
         public DateTime DateCreate { get; set; }
 
         [DataMember]
-        [Column(title: "Дата выполнения", gridViewAutoSize: GridViewAutoSize.Fill)]
+        [Column(title: "Дата выполнения", gridViewAutoSize: GridViewAutoSize.Fill, format: "D")]
         public DateTime? DateImplement { get; set; }
     }
 }
