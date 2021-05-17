@@ -13,6 +13,12 @@ namespace BlacksmithBusinessLogic.BindingModels
         public string MessageId { get; set; }
 
         [DataMember]
+        public int? Skip { get; set; }
+
+        [DataMember]
+        public int? Take { get; set; }
+
+        [DataMember]
         public string FromMailAddress { get; set; }
 
         [DataMember]

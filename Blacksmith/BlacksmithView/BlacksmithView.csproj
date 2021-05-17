@@ -346,6 +346,9 @@
     <EmbeddedResource Include="FormImplementers.resx">
       <DependentUpon>FormImplementers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormMails.resx">
+      <DependentUpon>FormMails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
