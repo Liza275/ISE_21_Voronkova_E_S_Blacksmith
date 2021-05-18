@@ -42,6 +42,9 @@ namespace BlacksmithView
                 buttonNext.Text = "Следующая";
                 buttonNext.Enabled = false;
             }
+            if (currentPage > 1)
+            { buttonPrev.Text = (currentPage - 1).ToString(); }
+        
             if (list != null)
             {
                 dataGridView.DataSource = list.Take(mailsOnPage).ToList();
@@ -79,6 +82,39 @@ namespace BlacksmithView
                     buttonPrev.Text = (currentPage - 1).ToString();
                 }
                 LoadData();
+            }
+        }
+
+        private void textBoxPage_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (textBoxPage.Text != "")
+                {
+                    int currentPageValue = Convert.ToInt32(textBoxPage.Text);
+
+                    if (currentPageValue < 1)
+                    {
+                        throw new Exception();
+                    }
+
+                    int stringsCountOnPage = logic.Read(new MessageInfoBindingModel
+                    {
+                        Skip=(currentPageValue - 1),Take= mailsOnPage
+                    }).Count;
+
+                    if (stringsCountOnPage == 0)
+                    {
+                        throw new Exception();
+                    }
+
+                    currentPage = currentPageValue;
+                    LoadData();
+                }
+            }
+            catch (Exception)
+            {
+                textBoxPage.Text = currentPage.ToString();
             }
         }
     }

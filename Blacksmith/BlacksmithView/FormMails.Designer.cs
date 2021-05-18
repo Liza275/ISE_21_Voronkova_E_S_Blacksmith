@@ -40,7 +40,7 @@
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(7, 4);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersWidth = 51;
             this.dataGridView.Size = new System.Drawing.Size(839, 459);
@@ -50,10 +50,10 @@
             // 
             this.textBoxPage.Location = new System.Drawing.Point(359, 482);
             this.textBoxPage.Name = "textBoxPage";
-            this.textBoxPage.ReadOnly = true;
             this.textBoxPage.Size = new System.Drawing.Size(42, 22);
             this.textBoxPage.TabIndex = 1;
             this.textBoxPage.Text = "1";
+            this.textBoxPage.TextChanged += new System.EventHandler(this.textBoxPage_TextChanged);
             // 
             // buttonNext
             // 
@@ -85,7 +85,7 @@
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.textBoxPage);
             this.Controls.Add(this.dataGridView);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMails";
             this.Text = "FormMails";
             this.Load += new System.EventHandler(this.FormMails_Load);
