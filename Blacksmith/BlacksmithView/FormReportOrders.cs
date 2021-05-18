@@ -4,6 +4,7 @@ using BlacksmithBusinessLogic.BusinessLogics;
 using System;
 using System.Windows.Forms;
 using Unity;
+using System.Reflection;
 
 namespace BlacksmithView
 {
@@ -65,12 +66,13 @@ namespace BlacksmithView
                 {
                     try
                     {
-                        logic.SaveOrdersToPdfFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveOrdersToPdfFile");
+                        method.Invoke(logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                             DateFrom = dateTimePickerFrom.Value,
                             DateTo = dateTimePickerTo.Value
-                        });
+                        }});
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     }

@@ -132,10 +132,11 @@ namespace BlacksmithView
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    _reportLogic.SaveManufacturesToWordFile(new ReportBindingModel
-                    {
-                        FileName = dialog.FileName
-                    });
+                    MethodInfo method = _reportLogic.GetType().GetMethod("SaveManufacturesToWordFile");
+                    method.Invoke(_reportLogic, new object[] { new ReportBindingModel
+                        {
+                            FileName = dialog.FileName
+                        }});
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 }
@@ -164,7 +165,7 @@ namespace BlacksmithView
         {
             _workModeling.DoWork();
             LoadData();
-        }    
+        }
 
         private void складToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -184,10 +185,11 @@ namespace BlacksmithView
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    _reportLogic.SaveWarehousesToWordFile(new ReportBindingModel
-                    {
-                        FileName = dialog.FileName
-                    });
+                    MethodInfo method = _reportLogic.GetType().GetMethod("SaveWarehousesToWordFile");
+                    method.Invoke(_reportLogic, new object[] { new ReportBindingModel
+                        {
+                            FileName = dialog.FileName
+                        }});
                     MessageBox.Show("Выполнено", "Успешно", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 }
