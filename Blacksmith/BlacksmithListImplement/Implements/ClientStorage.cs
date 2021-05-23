@@ -4,11 +4,10 @@ using BlacksmithBusinessLogic.ViewModels;
 using BlacksmithListImplement.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BlacksmithListImplement.Implements
 {
-	public class ClientStorage : IClientStorage
+    public class ClientStorage : IClientStorage
 	{
 		private readonly DataListSingleton source;
 

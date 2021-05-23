@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BlacksmithListImplement.Models
+﻿namespace BlacksmithListImplement.Models
 {
     public class Client
     {

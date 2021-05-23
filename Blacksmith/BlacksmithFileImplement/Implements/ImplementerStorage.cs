@@ -26,7 +26,7 @@ namespace BlacksmithFileImplement.Implements
             }
             else
             {
-                throw new Exception("Исполнитель не найден");
+                throw new Exception("Implementer not found");
             }
         }
 
@@ -74,7 +74,7 @@ namespace BlacksmithFileImplement.Implements
             var element = source.Implementers.FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)
             {
-                throw new Exception("Исполнитель не найден");
+                throw new Exception("Implementer not found");
             }
             CreateModel(model, element);
         }
@@ -98,4 +98,3 @@ namespace BlacksmithFileImplement.Implements
             };
         }
     }
-}
