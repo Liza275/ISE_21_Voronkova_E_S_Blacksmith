@@ -15,6 +15,7 @@ namespace BlacksmithFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string ManufactureFileName = "Manufacture.xml";
         private readonly string ClientFileName = "Client.xml";
+        private readonly string ImplementerFileName = "Implementer.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Manufacture> Manufactures { get; set; }
@@ -27,6 +28,7 @@ namespace BlacksmithFileImplement
             Orders = LoadOrders();
             Manufactures = LoadManufactures();
             Clients = LoadClients();
+            Implementers = LoadImplementers();
         }
 
         public static FileDataListSingleton GetInstance()
@@ -44,6 +46,28 @@ namespace BlacksmithFileImplement
             SaveOrders();
             SaveManufactures();
             SaveClients();
+            SaveImplementers();
+        }
+
+        private List<Implementer> LoadImplementers()
+        {
+            var list = new List<Implementer>();
+            if (File.Exists(ImplementerFileName))
+            {
+                XDocument xDocument = XDocument.Load(ImplementerFileName);
+                var xElements = xDocument.Root.Elements("Implementers").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Implementer
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ImplementerFIO = elem.Element("ClientFIO").Value,
+                        WorkingTime = Convert.ToInt32(elem.Element("WorkingTime").Value),
+                        PauseTime = Convert.ToInt32(elem.Element("PauseTime").Value)
+                    });
+                }
+            }
+            return list;
         }
 
         private List<Component> LoadComponents()
@@ -94,6 +118,7 @@ namespace BlacksmithFileImplement
                     {
                         Id = Convert.ToInt32(elem.Element("Id")?.Value),
                         ManufactureId = Convert.ToInt32(elem.Element("ManufactureId")?.Value),
+                        ImplementerId = Convert.ToInt32(elem.Element("ImplementerId")?.Value),
                         ClientId = Convert.ToInt32(elem.Element("ClientId")?.Value),
                         Count = Convert.ToInt32(elem.Element("Count")?.Value),
                         Sum = Convert.ToInt32(elem.Element("Sum")?.Value),
@@ -171,6 +196,24 @@ namespace BlacksmithFileImplement
             }
         }
 
+        private void SaveImplementers()
+        {
+            if (Implementers != null)
+            {
+                var xElement = new XElement("Implementers");
+                foreach (var implementer in Implementers)
+                {
+                    xElement.Add(new XElement("Implementer",
+                    new XAttribute("Id", implementer.Id),
+                    new XElement("ImplementerFIO", implementer.ImplementerFIO),
+                    new XElement("WorkingTime", implementer.WorkingTime),
+                    new XElement("PauseTime", implementer.PauseTime)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(ImplementerFileName);
+            }
+        }
+
         private void SaveOrders()
         {
             // прописать логику
@@ -183,6 +226,7 @@ namespace BlacksmithFileImplement
                     new XAttribute("Id", order.Id),
                     new XElement("ManufactureId", order.ManufactureId),
                     new XElement("ClientId", order.ClientId),
+                    new XElement("ImplementerId", order.ImplementerId),
                     new XElement("Count", order.Count),
                     new XElement("DateCreate", order.DateCreate),
                     new XElement("DateImplement", order.DateImplement),
