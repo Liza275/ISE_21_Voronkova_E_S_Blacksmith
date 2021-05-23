@@ -35,13 +35,13 @@ namespace BlacksmithView
                 dateTimePickerFrom.Value.ToShortDateString() + " по " +
                 dateTimePickerTo.Value.ToShortDateString());
                 reportViewerOrders.LocalReport.SetParameters(parameter);
-                var dataSource = logic.GetOrders(new ReportBindingModel
+                MethodInfo method = logic.GetType().GetMethod("GetOrders");
+                var dataSource = method.Invoke(logic, new object[] { new ReportBindingModel
                 {
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
-                });
-                ReportDataSource source = new ReportDataSource("DataSetOrders",
-                dataSource);
+                 }});
+                ReportDataSource source = new ReportDataSource("DataSetOrders", dataSource);
                 reportViewerOrders.LocalReport.DataSources.Add(source);
                 reportViewerOrders.RefreshReport();
             }
