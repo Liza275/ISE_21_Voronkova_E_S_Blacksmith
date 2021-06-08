@@ -98,4 +98,8 @@ namespace BlacksmithFileImplement.Implements
             };
         }
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
