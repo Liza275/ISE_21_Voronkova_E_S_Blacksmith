@@ -12,12 +12,14 @@ namespace BlacksmithView
         private readonly OrderLogic _orderLogic;
         private readonly ReportLogic _reportLogic;
         private readonly WorkModeling _workModeling;
-        public FormMain(OrderLogic orderLogic, ReportLogic reportLogic, WorkModeling workModeling)
+        private readonly BackUpAbstractLogic _backUpAbstractLogic;
+        public FormMain(OrderLogic orderLogic, ReportLogic reportLogic, WorkModeling workModeling, BackUpAbstractLogic _backUpAbstractLogic)
         {
             InitializeComponent();
             _reportLogic = reportLogic;
             this._orderLogic = orderLogic;
             _workModeling = workModeling;
+            this._backUpAbstractLogic = _backUpAbstractLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -27,11 +29,7 @@ namespace BlacksmithView
         {
             try
             {
-                dataGridView.DataSource = _orderLogic.Read(null);
-                dataGridView.Columns["Id"].Visible = false;
-                dataGridView.Columns["ManufactureId"].Visible = false;
-                dataGridView.Columns["ImplementerId"].Visible = false;
-                dataGridView.Columns["ClientId"].Visible = false;
+                Program.ConfigGrid(_orderLogic.Read(null), dataGridView);
             }
             catch (Exception ex)
             {
@@ -168,6 +166,28 @@ namespace BlacksmithView
         {
             var form = Container.Resolve<FormMails>();
             form.ShowDialog();
+        }
+
+        private void сохранитьДанныеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_backUpAbstractLogic != null)
+                {
+                    var fbd = new FolderBrowserDialog();
+                    if (fbd.ShowDialog() == DialogResult.OK)
+                    {
+                        _backUpAbstractLogic.CreateArchive(fbd.SelectedPath);
+                        MessageBox.Show("Копия создана", "Сообщение",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
+            }
         }
     }
 }
