@@ -47,8 +47,7 @@ namespace BlacksmithView
         
             if (list != null)
             {
-                dataGridView.DataSource = list.Take(mailsOnPage).ToList();
-                dataGridView.Columns[0].Visible = false;
+                Program.ConfigGrid(list.Take(mailsOnPage).ToList(), dataGridView);
             }
         }
 

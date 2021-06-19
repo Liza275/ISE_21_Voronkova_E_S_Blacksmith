@@ -4,6 +4,7 @@ using BlacksmithBusinessLogic.BusinessLogics;
 using System;
 using System.Windows.Forms;
 using Unity;
+using System.Reflection;
 
 namespace BlacksmithView
 {
@@ -34,13 +35,13 @@ namespace BlacksmithView
                 dateTimePickerFrom.Value.ToShortDateString() + " по " +
                 dateTimePickerTo.Value.ToShortDateString());
                 reportViewerOrders.LocalReport.SetParameters(parameter);
-                var dataSource = logic.GetOrders(new ReportBindingModel
+                MethodInfo method = logic.GetType().GetMethod("GetOrders");
+                var dataSource = method.Invoke(logic, new object[] { new ReportBindingModel
                 {
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
-                });
-                ReportDataSource source = new ReportDataSource("DataSetOrders",
-                dataSource);
+                 }});
+                ReportDataSource source = new ReportDataSource("DataSetOrders", dataSource);
                 reportViewerOrders.LocalReport.DataSources.Add(source);
                 reportViewerOrders.RefreshReport();
             }
@@ -65,12 +66,13 @@ namespace BlacksmithView
                 {
                     try
                     {
-                        logic.SaveOrdersToPdfFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveOrdersToPdfFile");
+                        method.Invoke(logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                             DateFrom = dateTimePickerFrom.Value,
                             DateTo = dateTimePickerTo.Value
-                        });
+                        }});
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     }

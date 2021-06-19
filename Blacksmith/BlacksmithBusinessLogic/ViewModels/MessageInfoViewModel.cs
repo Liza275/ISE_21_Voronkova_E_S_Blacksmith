@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlacksmithBusinessLogic.Attributes;
+using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 
@@ -8,21 +9,22 @@ namespace BlacksmithBusinessLogic.ViewModels
     public class MessageInfoViewModel
     {
         [DataMember]
+        [Column(visible: false)]
         public string MessageId { get; set; }
 
-        [DisplayName("Отправитель")]
+        [Column(title: "Отправитель", width: 100)]
         [DataMember]
         public string SenderName { get; set; }
 
-        [DisplayName("Дата письма")]
+        [Column(title: "Дата письма", width: 100, format: "D")]
         [DataMember]
         public DateTime DateDelivery { get; set; }
 
-        [DisplayName("Заголовок")]
+        [Column(title: "Заголовок", width: 100)]
         [DataMember]
         public string Subject { get; set; }
 
-        [DisplayName("Текст")]
+        [Column(title: "Текст", gridViewAutoSize: GridViewAutoSize.Fill)]
         [DataMember]
         public string Body { get; set; }
     }

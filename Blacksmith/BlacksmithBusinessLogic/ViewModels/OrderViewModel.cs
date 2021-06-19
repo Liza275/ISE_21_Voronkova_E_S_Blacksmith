@@ -1,4 +1,5 @@
-﻿using BlacksmithBusinessLogic.Enums;
+﻿using BlacksmithBusinessLogic.Attributes;
+using BlacksmithBusinessLogic.Enums;
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
@@ -12,6 +13,7 @@ namespace BlacksmithBusinessLogic.ViewModels
     public class OrderViewModel
     {
         [DataMember]
+        [Column(title: "Номер", gridViewAutoSize: GridViewAutoSize.Fill)]
         public int Id { get; set; }
 
         [DataMember]
@@ -24,35 +26,35 @@ namespace BlacksmithBusinessLogic.ViewModels
         public int? ImplementerId { get; set; }
 
         [DataMember]
-        [DisplayName("Клиент")]
+        [Column(title: "Клиент", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ClientFIO { get; set; }
 
         [DataMember]
-        [DisplayName("Исполнитель")]
+        [Column(title: "Исполнитель", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ImplementerFIO { get; set; }
 
         [DataMember]
-        [DisplayName("Изделие")]
+        [Column(title: "Изделие", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ManufactureName { get; set; }
 
         [DataMember]
-        [DisplayName("Количество")]
+        [Column(title: "Количество", gridViewAutoSize: GridViewAutoSize.Fill)]
         public int Count { get; set; }
 
         [DataMember]
-        [DisplayName("Сумма")]
+        [Column(title: "Сумма", gridViewAutoSize: GridViewAutoSize.Fill)]
         public decimal Sum { get; set; }
 
         [DataMember]
-        [DisplayName("Статус")]
+        [Column(title: "Статус", gridViewAutoSize: GridViewAutoSize.Fill)]
         public OrderStatus Status { get; set; }
 
         [DataMember]
-        [DisplayName("Дата создания")]
+        [Column(title: "Дата создания", gridViewAutoSize: GridViewAutoSize.Fill, format: "D")]
         public DateTime DateCreate { get; set; }
 
         [DataMember]
-        [DisplayName("Дата выполнения")]
+        [Column(title: "Дата выполнения", gridViewAutoSize: GridViewAutoSize.Fill, format: "D")]
         public DateTime? DateImplement { get; set; }
     }
 }

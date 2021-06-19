@@ -4,6 +4,9 @@ using Microsoft.Reporting.WinForms;
 using System;
 using System.Windows.Forms;
 using Unity;
+using System.Reflection;
+using BlacksmithBusinessLogic.ViewModels;
+using System.Collections.Generic;
 
 namespace BlacksmithView
 {
@@ -31,10 +34,11 @@ namespace BlacksmithView
                 {
                     try
                     {
-                        logic.SaveOrdersByDatesToPdfFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveOrdersByDatesToPdfFile");
+                        method.Invoke(logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName
-                        });
+                        }});
                         MessageBox.Show("Сохранено", "Успех", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     }
@@ -49,7 +53,8 @@ namespace BlacksmithView
         {
             try
             {
-                var dataSource = logic.GetOrdersByDates();
+                MethodInfo method = logic.GetType().GetMethod("SaveOrdersToPdfFile");
+                var dataSource = (List<ReportOrderByDatesViewModel>)method.Invoke(logic, new object[] { });
                 ReportDataSource source = new ReportDataSource("DataSetOrdersByDates", dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using BlacksmithBusinessLogic.Attributes;
+using System.ComponentModel;
 
 namespace BlacksmithBusinessLogic.ViewModels
 {
@@ -7,8 +8,9 @@ namespace BlacksmithBusinessLogic.ViewModels
     /// </summary>
     public class ComponentViewModel
     {
+        [Column(title: "Номер", width: 100)]
         public int Id { get; set; }
-        [DisplayName("Название компонента")]
+        [Column(title: "Название компонента", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ComponentName { get; set; }
     }
 }

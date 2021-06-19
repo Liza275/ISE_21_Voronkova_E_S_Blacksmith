@@ -6,6 +6,7 @@ using BlacksmithBusinessLogic.HelperModels;
 using BlacksmithBusinessLogic.Interfaces;
 using BlacksmithBusinessLogic.ViewModels;
 using BlacksmithBusinessLogic.Enums;
+using System.Reflection;
 
 namespace BlacksmithBusinessLogic.BusinessLogics
 {
@@ -142,21 +143,23 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         [Obsolete]
         public void SaveOrdersByDatesToPdfFile(ReportBindingModel model)
         {
+            MethodInfo method = GetType().GetMethod("GetOrdersByDates");
             SaveToPdf.CreateDocOrdersByDates(new PdfInfoOrdersByDates
             {
                 FileName = model.FileName,
                 Title = "Заказы по датам",
-                Orders = GetOrdersByDates()
+                Orders = (List<ReportOrderByDatesViewModel>)method.Invoke(this,null)
             });
         }
 
         public void SaveWarehouseComponentToExcelFile(ReportBindingModel model)
         {
+            MethodInfo method = GetType().GetMethod("GetWarehouseComponent");
             SaveToExcel.CreateDoc(new ExcelInfo
             {
                 FileName = model.FileName,
                 Title = "Компоненты по складам",
-                Warehouses = GetWarehouseComponent()
+                Warehouses = (List<ReportWarehouseComponentViewModel>)method.Invoke(this, null)
             });
         }
 
@@ -166,11 +169,12 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         /// <param name="model"></param>
         public void SaveComponentManufactureToExcelFile(ReportBindingModel model)
         {
+            MethodInfo method = GetType().GetMethod("GetComponentManufacture");
             SaveToExcel.CreateDoc(new ExcelInfo
             {
                 FileName = model.FileName,
                 Title = "Список изделий",
-                ComponentManufactures = GetComponentManufacture()
+                ComponentManufactures = (List<ReportComponentManufactureViewModel>)method.Invoke(this, new object[] { })
             });
         }
         /// <summary>
@@ -179,13 +183,14 @@ namespace BlacksmithBusinessLogic.BusinessLogics
         /// <param name="model"></param>
         public void SaveOrdersToPdfFile(ReportBindingModel model)
         {
+            MethodInfo method = GetType().GetMethod("GetOrders");
             SaveToPdf.CreateDoc(new PdfInfo
             {
                 FileName = model.FileName,
                 Title = "Список заказов",
                 DateFrom = model.DateFrom.Value,
                 DateTo = model.DateTo.Value,
-                Orders = GetOrders(model)
+                Orders = (List<ReportOrdersViewModel>)method.Invoke(this,new object[] { })
             });
         }
     }

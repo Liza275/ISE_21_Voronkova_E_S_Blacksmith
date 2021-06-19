@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlacksmithBusinessLogic.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -8,13 +9,13 @@ namespace BlacksmithBusinessLogic.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Название")]
+        [Column(title: "Название", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string WarehouseName { get; set; }
 
-        [DisplayName("ФИО ответственного")]
+        [Column(title: "ФИО ответсвенного", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ResponsiblePersonFCS { get; set; }
 
-        [DisplayName("Дата создания")]
+        [Column(title: "Дата создания", width: 100, format: "D")]
         public DateTime DateCreate { get; set; }
 
         public Dictionary<int, (string, int)> WarehouseComponents { get; set; }

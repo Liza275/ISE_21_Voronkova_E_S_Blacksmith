@@ -3,6 +3,9 @@ using System.Windows.Forms;
 using Unity;
 using BlacksmithBusinessLogic.BusinessLogics;
 using BlacksmithBusinessLogic.BindingModels;
+using System.Reflection;
+using System.Collections.Generic;
+using BlacksmithBusinessLogic.ViewModels;
 
 namespace BlacksmithView
 {
@@ -23,7 +26,8 @@ namespace BlacksmithView
         {
             try
             {
-                var dict = logic.GetComponentManufacture();
+                MethodInfo method = logic.GetType().GetMethod("GetComponentManufacture");
+                var dict = (List<ReportComponentManufactureViewModel>)method.Invoke(logic, new object[] { });
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -54,10 +58,11 @@ namespace BlacksmithView
                 {
                     try
                     {
-                        logic.SaveComponentManufactureToExcelFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveComponentManufactureToExcelFile");
+                        method.Invoke(logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName
-                        });
+                        }});
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     }
